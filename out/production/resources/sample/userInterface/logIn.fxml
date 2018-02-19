@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainWindowController">
     <children>
         <AnchorPane layoutY="30.0" prefHeight="485.0" prefWidth="1110.0" style="-fx-background-color: #ffff; -fx-border-radius: .5em;">
             <children>
@@ -63,11 +63,6 @@
                 </Label>
             </children>
         </AnchorPane>
-        <JFXButton fx:id="buttonClose" buttonType="RAISED" cancelButton="true" defaultButton="true" layoutX="1072.0" layoutY="40.0" ripplerFill="WHITE" text="X">
-            <font>
-                <Font name="Arial" size="15.0" />
-            </font>
-        </JFXButton>
         <AnchorPane />
     </children>
 </AnchorPane>

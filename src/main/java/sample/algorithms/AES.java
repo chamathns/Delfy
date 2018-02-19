@@ -34,7 +34,7 @@ public class AES {
         String decryptedValue = new String(decValue);
         return decryptedValue;
     }
-    private static Key generateKey() throws Exception {
+    private static Key generateKey() {
         Key key = new SecretKeySpec(keyValue, ALGO);
         return key;
     }
