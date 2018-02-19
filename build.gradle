@@ -1,0 +1,19 @@
+group = "Delfy"
+version = "1.0"
+group 'RiseKite'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'org.mongodb:mongodb-driver:3.6.2'
+    compile 'com.jfoenix:jfoenix:8.0.1'
+}
