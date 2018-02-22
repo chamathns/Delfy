@@ -13,11 +13,33 @@
     <children>
         <AnchorPane layoutY="30.0" prefHeight="485.0" prefWidth="1110.0" style="-fx-background-color: #ffff; -fx-border-radius: .5em;">
             <children>
-                <JFXButton  layoutY="173.0" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Encrypt" />
-                <JFXButton  layoutY="225.0" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Decrypt" />
-                <AnchorPane  layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
+                <JFXButton layoutY="173.0" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Encrypt" />
+                <JFXButton layoutY="225.0" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Decrypt" />
+                <AnchorPane layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
                     <children>
-                        <JFXButton  layoutX="192.0" layoutY="360.0" style="-fx-background-color: #0272A6;" text="Encrypt" textFill="WHITE" />
+                  <Label layoutX="174.0" layoutY="34.0" text="Decrypt">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <JFXButton layoutX="395.0" layoutY="169.0" prefHeight="20.0" prefWidth="37.0" text="..." />
+                  <JFXTextField layoutX="80.0" layoutY="169.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to decrypt">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                        <JFXButton layoutX="193.0" layoutY="360.0" style="-fx-background-color: #0272A6;" text="Decrypt" textFill="WHITE" />
+                  <JFXTextField layoutX="80.0" layoutY="258.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="specify the destination directory">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXButton layoutX="395.0" layoutY="258.0" prefHeight="20.0" prefWidth="37.0" text="..." />
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="encryptPane" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
+                    <children>
+                        <JFXButton layoutX="192.0" layoutY="360.0" style="-fx-background-color: #0272A6;" text="Encrypt" textFill="WHITE" />
                         <Label layoutX="75.0" layoutY="117.0" opacity="0.8" text="Select the encryption algorithm">
                             <font>
                                 <Font size="14.0" />
@@ -41,28 +63,6 @@
                         <Font size="32.0" />
                      </font>
                   </Label>
-                    </children>
-                </AnchorPane>
-                <AnchorPane layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
-                    <children>
-                  <Label layoutX="174.0" layoutY="34.0" text="Decrypt">
-                     <font>
-                        <Font size="32.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="395.0" layoutY="169.0" prefHeight="20.0" prefWidth="37.0" text="..." />
-                  <JFXTextField layoutX="80.0" layoutY="169.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to decrypt">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
-                        <JFXButton layoutX="193.0" layoutY="360.0" style="-fx-background-color: #0272A6;" text="Decrypt" textFill="WHITE" />
-                  <JFXTextField layoutX="80.0" layoutY="258.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="specify the destination directory">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXButton layoutX="395.0" layoutY="258.0" prefHeight="20.0" prefWidth="37.0" text="..." />
                     </children>
                 </AnchorPane>
             </children>
