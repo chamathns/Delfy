@@ -21,7 +21,7 @@ public class LogInController implements Initializable{
     @FXML
     AnchorPane paneSignIn, paneRegister;
     @FXML
-    public void handlePane( MouseEvent event) {
+    private void handlePane( MouseEvent event) {
 
         if (event.getSource()==buttonRegisterPane){
             paneRegister.toFront();
