@@ -48,7 +48,7 @@
                      <font>
                         <Font size="14.0" />
                      </font></JFXTextField>
-                        <JFXButton fx:id="buttonSignIn" layoutX="193.0" layoutY="360.0" style="-fx-background-color: #0272A6;" text="Sign In" textFill="WHITE" />
+                        <JFXButton fx:id="buttonSignIn" layoutX="193.0" layoutY="360.0" style="-fx-background-color: #0272A6;" text="Sign In" textFill="WHITE" onMouseClicked="#handleSignIn" />
                   <JFXPasswordField labelFloat="true" layoutX="78.0" layoutY="248.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="enter your passphrase">
                      <font>
                         <Font size="14.0" />
