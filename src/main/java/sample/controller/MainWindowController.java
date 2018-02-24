@@ -27,12 +27,10 @@ public class MainWindowController {
     public void filePicker(MouseEvent event){
         if (event.getSource()==buttonSelectFile){
             FileHandler.getInstance().selectFile();
-            System.out.println(FileHandler.getInstance().getPath());
             textFieldEncryptFile.setText(FileHandler.getInstance().getPath().toString().trim());
 
         }else if (event.getSource()==buttonSelectEncryptedFile){
             FileHandler.getInstance().selectEncryptedFile();
-            System.out.println(FileHandler.getInstance().getPath());
             textFieldDecryptFile.setText(FileHandler.getInstance().getPath().toString().trim());
         }
 
