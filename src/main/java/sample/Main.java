@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.paint.Color;
+import sample.util.DbConnect;
 
 public class Main extends Application {
     private double xOffset = 0;
@@ -32,6 +33,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        DbConnect.getInstance().connect();
 
         launch(args);
 //        MongoClient mongoClient = new MongoClient("localhost", 27017);

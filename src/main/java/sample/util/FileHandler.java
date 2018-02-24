@@ -12,19 +12,19 @@ public class FileHandler {
         return instance;
     }
 
-    public void selectFile(){
+    public File selectFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("C:\\"));
         selectedFile = fileChooser.showOpenDialog(null);
-
+        return selectedFile;
     }
-    public void selectEncryptedFile(){
+    public File selectEncryptedFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("C:\\"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("text files","*.txt"));
         selectedFile = fileChooser.showOpenDialog(null);
-
+        return selectedFile;
     }
     public File getPath(){
         return selectedFile;

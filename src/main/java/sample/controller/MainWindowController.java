@@ -7,6 +7,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import sample.util.FileHandler;
 
+import java.io.File;
+
 public class MainWindowController {
     @FXML
     JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane, btnRecentsPane;
@@ -26,12 +28,17 @@ public class MainWindowController {
     }
     public void filePicker(MouseEvent event){
         if (event.getSource()==buttonSelectFile){
-            FileHandler.getInstance().selectFile();
-            textFieldEncryptFile.setText(FileHandler.getInstance().getPath().toString().trim());
+            File de_file = FileHandler.getInstance().selectFile();
+            if (de_file!= null){
+                textFieldEncryptFile.setText(FileHandler.getInstance().getPath().toString().trim());
+            }
+
 
         }else if (event.getSource()==buttonSelectEncryptedFile){
-            FileHandler.getInstance().selectEncryptedFile();
-            textFieldDecryptFile.setText(FileHandler.getInstance().getPath().toString().trim());
+            File en_file = FileHandler.getInstance().selectEncryptedFile();
+            if (en_file!= null){
+                textFieldDecryptFile.setText(FileHandler.getInstance().getPath().toString().trim());
+            }
         }
 
     }
