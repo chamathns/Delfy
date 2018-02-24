@@ -18,8 +18,9 @@
     <children>
         <AnchorPane layoutY="30.0" prefHeight="485.0" prefWidth="1110.0" style="-fx-background-color: #ffff; -fx-border-radius: .5em;">
             <children>
-                <JFXButton fx:id="btnEncryptPane" layoutY="173.0" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Encrypt" onMouseClicked="#handlePane" />
-                <JFXButton fx:id="btnDecryptPane" layoutY="225.0" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Decrypt" onMouseClicked="#handlePane"/>
+                <JFXButton fx:id="btnEncryptPane" layoutY="173.0" onMouseClicked="#handlePane" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Encrypt" />
+                <JFXButton fx:id="btnDecryptPane" layoutY="225.0" onMouseClicked="#handlePane" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Decrypt" />
+            <JFXButton fx:id="btnRecentsPane" layoutY="277.0" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Recent Files" />
                 <AnchorPane fx:id="paneDecrypt" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
                     <children>
                   <Label layoutX="174.0" layoutY="34.0" text="Decrypt">
@@ -27,8 +28,8 @@
                         <Font size="32.0" />
                      </font>
                   </Label>
-                  <JFXButton layoutX="395.0" layoutY="169.0" prefHeight="20.0" prefWidth="37.0" text="..." />
-                  <JFXTextField layoutX="80.0" layoutY="169.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to decrypt">
+                  <JFXButton fx:id="buttonSelectEncryptedFile" layoutX="395.0" layoutY="169.0" onMouseClicked="#filePicker" prefHeight="20.0" prefWidth="37.0" text="..." />
+                  <JFXTextField fx:id="textFieldDecryptFile" layoutX="80.0" layoutY="169.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to decrypt">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -51,12 +52,12 @@
                             </font>
                         </Label>
                   <JFXComboBox layoutX="75.0" layoutY="150.0" prefHeight="31.0" prefWidth="300.0" visibleRowCount="4" />
-                  <JFXTextField layoutX="75.0" layoutY="214.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to encrypt">
+                  <JFXTextField fx:id="textFieldEncryptFile" layoutX="75.0" layoutY="214.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to encrypt">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </JFXTextField>
-                  <JFXButton fx:id="buttonSelectFile" layoutX="386.0" layoutY="214.0" prefHeight="20.0" prefWidth="37.0" text="..." />
+                  <JFXButton fx:id="buttonSelectFile" layoutX="386.0" layoutY="214.0" onMouseClicked="#filePicker" prefHeight="20.0" prefWidth="37.0" text="..." />
                   <JFXTextField layoutX="75.0" layoutY="289.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="specify the destination directory">
                      <font>
                         <Font size="14.0" />
@@ -70,9 +71,9 @@
                   </Label>
                     </children>
                 </AnchorPane>
-            <JFXButton fx:id="btnRecentsPane" layoutY="277.0" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Recent Files" />
             </children>
         </AnchorPane>
+        <AnchorPane />
         <AnchorPane layoutX="170.0" prefHeight="545.0" prefWidth="490.0" style="-fx-background-color: #0272A6;">
             <children>
 
@@ -83,6 +84,5 @@
                 </Label>
             </children>
         </AnchorPane>
-        <AnchorPane />
     </children>
 </AnchorPane>

@@ -15,8 +15,18 @@ public class FileHandler {
     public void selectFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("C:\\"));
+        selectedFile = fileChooser.showOpenDialog(null);
+
+    }
+    public void selectEncryptedFile(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("C:\\"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("text files","*.txt"));
         selectedFile = fileChooser.showOpenDialog(null);
+
+    }
+    public File getPath(){
+        return selectedFile;
     }
 }
