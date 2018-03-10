@@ -14,10 +14,13 @@ public class DbConnect {
         MongoClient mongoClient = new MongoClient("Localhost",27017);
         MongoDatabase database = mongoClient.getDatabase("Delfy");
         MongoCollection collection = database.getCollection("user");
-        Document doc = new Document("name","Chamath")
-                .append("e-mail","chamath@gmail.com")
-                .append("password","MasterKey");
-        collection.insertOne(doc);
+//        Document doc = new Document("name","Chamath")
+//                .append("e-mail","chamath@gmail.com")
+//                .append("password","MasterKey");
+//
+//
+//
+//        collection.insertOne(doc);
     }
 
 

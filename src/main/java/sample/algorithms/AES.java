@@ -8,13 +8,17 @@ import javax.crypto.spec.SecretKeySpec;
 import sun.misc.*;
 
 public class AES {
+    private static AES instance = new AES();
+    public static AES getInstance(){
+        return instance;
+    }
 
     private static final String ALGO = "AES";
-    private static final byte[] keyValue =
-            new byte[] { 'W', 'h', 'C', 'B', 'e', 's', 's',
+    private static byte[] keyValue;
 
-                    'S', 'e', 'c', 's','e', 's', 'K', 'e', 'w' };
-
+    public static void setKeyValue(byte[] keyValue) {
+        AES.keyValue = keyValue;
+    }
 
     public static String encrypt(String Data) throws Exception {
         Key key = generateKey();

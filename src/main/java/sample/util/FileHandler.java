@@ -1,5 +1,6 @@
 package sample.util;
 
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -18,6 +19,13 @@ public class FileHandler {
         selectedFile = fileChooser.showOpenDialog(null);
         return selectedFile;
     }
+    public File selectDirectory(){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(new File("C:\\"));
+        File selectedDirectory = directoryChooser.showDialog(null);
+        return  selectedDirectory;
+    }
+
     public File selectEncryptedFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("C:\\"));
