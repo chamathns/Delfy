@@ -50,13 +50,13 @@
                 </AnchorPane>
                 <AnchorPane fx:id="paneEncrypt" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
                     <children>
-                        <JFXButton fx:id="buttonEncrypt" layoutX="192.0" layoutY="377.0" style="-fx-background-color: #0272A6;" text="Encrypt" textFill="WHITE" onMouseClicked="#encrypt"/>
+                        <JFXButton fx:id="buttonEncrypt" layoutX="192.0" layoutY="377.0" onMouseClicked="#encrypt" style="-fx-background-color: #0272A6;" text="Encrypt" textFill="WHITE" />
                         <Label layoutX="75.0" layoutY="88.0" opacity="0.75" text="Select the encryption algorithm" textFill="#4d4d4d">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                  <JFXComboBox fx:id="algoCombo" layoutX="75.0" layoutY="121.0" prefHeight="31.0" prefWidth="300.0" visibleRowCount="4" />
+                  <JFXComboBox fx:id="algoCombo" layoutX="75.0" layoutY="121.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" visibleRowCount="4" />
                   <JFXTextField fx:id="textFieldEncryptFile" layoutX="75.0" layoutY="185.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to encrypt">
                      <font>
                         <Font size="14.0" />

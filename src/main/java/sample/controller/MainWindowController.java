@@ -5,16 +5,19 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import sample.algorithms.AES;
 import sample.util.FileHandler;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
+    private static final String masterKey = "2EA45ED5B21E3%K^";
+    private String algorithm, encryptedData;
     @FXML
     JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
             btnRecentsPane, buttonDecryptDirectory, buttonEncrypt;
@@ -25,13 +28,21 @@ public class MainWindowController implements Initializable {
     @FXML
     JFXComboBox algoCombo;
 
-    @FXML
-    ComboBox comboBox;
-
     public void setAlgoCombo(JFXComboBox algoCombo) {
         this.algoCombo = algoCombo;
         algoCombo.getItems().setAll("AES","DES","Blowfish","IDEA");
         algoCombo.setValue(this.algoCombo.getItems().get(0));
+    }
+
+    public String getAlgorithm() {
+        return algorithm;
+    }
+    public void setAlgorithm() {
+        this.algorithm = algoCombo.getValue().toString();
+    }
+
+    public String getEncryptedData() {
+        return encryptedData;
     }
 
     @FXML
@@ -74,14 +85,18 @@ public class MainWindowController implements Initializable {
         }
     }
     public void encrypt(MouseEvent event){
-        if (event.getSource()==buttonEncrypt){
-            System.out.println(algoCombo.getValue().toString());
+        setAlgorithm();
+        AES.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
+        System.out.println(getAlgorithm());
+        try {
+            encryptedData = AES.encrypt("data");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        System.out.println(getEncryptedData());
     }
 
-//    public void algoComboBox(){
-//
-//    }
+
 
 
 
