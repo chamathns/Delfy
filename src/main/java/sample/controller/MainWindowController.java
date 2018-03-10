@@ -2,6 +2,7 @@ package sample.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import org.apache.commons.io.FilenameUtils;
 import sample.algorithms.AES;
 import sample.util.FileHandler;
+import sample.util.KeyHandler;
 
 import java.io.File;
 import java.net.URL;
@@ -21,14 +23,17 @@ public class MainWindowController implements Initializable {
     private String algorithm, en_passphrase, de_passphrase, encryptedFileName, filename;
     private byte[] encryptedData, decryptedData;
     @FXML
-    JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
+    private JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
             btnRecentsPane, buttonDecryptDirectory, buttonEncrypt;
     @FXML
-    JFXTextField textFieldEncryptFile, textFieldDecryptFile, textEncryptDirectory, textDecryptDirectory;
+    private JFXTextField textFieldEncryptFile, textFieldDecryptFile, textEncryptDirectory, textDecryptDirectory;
     @FXML
-    AnchorPane paneEncrypt, paneDecrypt, paneRecents;
+    private AnchorPane paneEncrypt, paneDecrypt, paneRecents;
     @FXML
-    JFXComboBox algoCombo;
+    private JFXComboBox algoCombo;
+    @FXML
+    private JFXPasswordField passwordFieldEncrypt;
+    
 
     public void setAlgoCombo(JFXComboBox algoCombo) {
         this.algoCombo = algoCombo;
@@ -100,7 +105,9 @@ public class MainWindowController implements Initializable {
 //        String ex1 = FilenameUtils.getExtension(textFieldEncryptFile.getText().trim());
 //        System.out.println(ex1);
 
-        AES.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
+//        AES.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
+
+        AES.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
         System.out.println(getAlgorithm());
         try {
             encryptedData = AES.encrypt(data);

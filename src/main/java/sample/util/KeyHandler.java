@@ -13,7 +13,7 @@ public class KeyHandler {
         return instance;
     }
 
-    public byte[] generateKey(String userPassphrase){
+    public static byte[] generateKey(String userPassphrase){
         AES.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
         try {
            encryptedPassphrase = AES.encrypt(userPassphrase.getBytes());
