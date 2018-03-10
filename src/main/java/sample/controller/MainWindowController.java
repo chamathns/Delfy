@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import sample.util.FileHandler;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 public class MainWindowController implements Initializable {
     @FXML
     JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
-            btnRecentsPane, buttonDecryptDirectory;
+            btnRecentsPane, buttonDecryptDirectory, buttonEncrypt;
     @FXML
     JFXTextField textFieldEncryptFile, textFieldDecryptFile, textEncryptDirectory, textDecryptDirectory;
     @FXML
@@ -24,9 +25,13 @@ public class MainWindowController implements Initializable {
     @FXML
     JFXComboBox algoCombo;
 
+    @FXML
+    ComboBox comboBox;
+
     public void setAlgoCombo(JFXComboBox algoCombo) {
         this.algoCombo = algoCombo;
         algoCombo.getItems().setAll("AES","DES","Blowfish","IDEA");
+        algoCombo.setValue(this.algoCombo.getItems().get(0));
     }
 
     @FXML
@@ -66,6 +71,11 @@ public class MainWindowController implements Initializable {
             if(de_directory!= null){
                 textDecryptDirectory.setText(de_directory.getPath().toString().trim());
             }
+        }
+    }
+    public void encrypt(MouseEvent event){
+        if (event.getSource()==buttonEncrypt){
+            System.out.println(algoCombo.getValue().toString());
         }
     }
 
