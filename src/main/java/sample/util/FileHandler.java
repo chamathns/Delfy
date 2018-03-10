@@ -2,10 +2,12 @@ package sample.util;
 
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileHandler {
@@ -40,14 +42,21 @@ public class FileHandler {
     public File getPath(){
         return selectedFile;
     }
-    public static String readFile(String filePath){
-        String content ="";
+    public static byte[] readFile(String filePath){
+        byte[] content = {};
         try{
-            content = new String(Files.readAllBytes(Paths.get(filePath)));
+            content = FileUtils.readFileToByteArray(new File(filePath));
         } catch (IOException e){
             e.printStackTrace();
         }
         return content;
+    }
+    public static void writeFile(String filePath, byte[] byteArray){
+        try {
+            FileUtils.writeByteArrayToFile(new File(filePath),byteArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

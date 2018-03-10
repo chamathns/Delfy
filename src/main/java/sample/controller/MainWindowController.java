@@ -18,7 +18,8 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
     private static final String masterKey = "2EA45ED5B21E3%K^";
-    private String algorithm, encryptedData, decryptedData, en_passphrase, de_passphrase;
+    private String algorithm, en_passphrase, de_passphrase, encryptedFileName, filename;
+    private byte[] encryptedData, decryptedData;
     @FXML
     JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
             btnRecentsPane, buttonDecryptDirectory, buttonEncrypt;
@@ -42,11 +43,11 @@ public class MainWindowController implements Initializable {
         this.algorithm = algoCombo.getValue().toString();
     }
 
-    public String getEncryptedData() {
+    public byte[] getEncryptedData() {
         return encryptedData;
     }
 
-    public String getDecryptedData() {
+    public byte[] getDecryptedData() {
         return decryptedData;
     }
 
@@ -62,13 +63,16 @@ public class MainWindowController implements Initializable {
     }
     public void filePicker(MouseEvent event){
         if (event.getSource()==buttonSelectFile){
-            File de_file = FileHandler.getInstance().selectFile();
-            if (de_file!= null){
-                textFieldEncryptFile.setText(de_file.getPath().toString().trim());
+            File file = FileHandler.getInstance().selectFile();
+            filename = FilenameUtils.getBaseName(file.getName());
+
+            if (file!= null){
+                textFieldEncryptFile.setText(file.getPath().toString().trim());
             }
 
         }else if (event.getSource()==buttonSelectEncryptedFile){
             File en_file = FileHandler.getInstance().selectEncryptedFile();
+            encryptedFileName = FilenameUtils.getBaseName(en_file.getName());
             if (en_file!= null){
                  textFieldDecryptFile.setText(en_file.getPath().toString().trim());
             }
@@ -91,9 +95,11 @@ public class MainWindowController implements Initializable {
     }
     public void encrypt(MouseEvent event){
         setAlgorithm();
-        String data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
+        System.out.println(filename);
+        byte[] data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
 //        String ex1 = FilenameUtils.getExtension(textFieldEncryptFile.getText().trim());
 //        System.out.println(ex1);
+
         AES.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
         System.out.println(getAlgorithm());
         try {
@@ -106,9 +112,13 @@ public class MainWindowController implements Initializable {
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println("Original data: "+ data);
-        System.out.println("Encrypted data: "+ getEncryptedData());
-        System.out.println("Decrypted data: "+ getDecryptedData());
+        String s = new String(data);
+        String se = new String(getEncryptedData());
+        String sd = new String(getDecryptedData());
+        System.out.println("Original data: "+ s);
+        System.out.println("Encrypted data: "+ se);
+        System.out.println("Decrypted data: "+ sd);
+        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\file.enc"),getEncryptedData());
     }
 
     @Override
