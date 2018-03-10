@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
     private static final String masterKey = "2EA45ED5B21E3%K^";
-    private String algorithm, encryptedData;
+    private String algorithm, encryptedData, decryptedData;
     @FXML
     JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
             btnRecentsPane, buttonDecryptDirectory, buttonEncrypt;
@@ -43,6 +43,10 @@ public class MainWindowController implements Initializable {
 
     public String getEncryptedData() {
         return encryptedData;
+    }
+
+    public String getDecryptedData() {
+        return decryptedData;
     }
 
     @FXML
@@ -86,14 +90,22 @@ public class MainWindowController implements Initializable {
     }
     public void encrypt(MouseEvent event){
         setAlgorithm();
+        String data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
         AES.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
         System.out.println(getAlgorithm());
         try {
-            encryptedData = AES.encrypt("data");
+            encryptedData = AES.encrypt(data);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(getEncryptedData());
+        try {
+            decryptedData = AES.decrypt(encryptedData);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("Original data: "+ data);
+        System.out.println("Encrypted data: "+ getEncryptedData());
+        System.out.println("Decrypted data: "+ getDecryptedData());
     }
 
 
