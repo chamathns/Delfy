@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import org.apache.commons.io.FilenameUtils;
 import sample.algorithms.AES;
 import sample.util.FileHandler;
 
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
     private static final String masterKey = "2EA45ED5B21E3%K^";
-    private String algorithm, encryptedData, decryptedData;
+    private String algorithm, encryptedData, decryptedData, en_passphrase, de_passphrase;
     @FXML
     JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
             btnRecentsPane, buttonDecryptDirectory, buttonEncrypt;
@@ -91,6 +92,8 @@ public class MainWindowController implements Initializable {
     public void encrypt(MouseEvent event){
         setAlgorithm();
         String data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
+//        String ex1 = FilenameUtils.getExtension(textFieldEncryptFile.getText().trim());
+//        System.out.println(ex1);
         AES.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
         System.out.println(getAlgorithm());
         try {
@@ -107,10 +110,6 @@ public class MainWindowController implements Initializable {
         System.out.println("Encrypted data: "+ getEncryptedData());
         System.out.println("Decrypted data: "+ getDecryptedData());
     }
-
-
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

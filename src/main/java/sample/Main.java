@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.paint.Color;
+import org.apache.commons.io.FilenameUtils;
 import sample.util.DbConnect;
 
 public class Main extends Application {
@@ -38,5 +39,7 @@ public class Main extends Application {
         launch(args);
 //        MongoClient mongoClient = new MongoClient("localhost", 27017);
 //        System.out.println("Server connection successful");
+
+
     }
 }
