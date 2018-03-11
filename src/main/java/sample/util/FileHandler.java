@@ -29,7 +29,6 @@ public class FileHandler {
         fileChooser.setInitialDirectory(new File("C:\\"));
         selectedFile = fileChooser.showOpenDialog(null);
         extension = FilenameUtils.getExtension(selectedFile.getPath());
-        System.out.println("selectFile() extension: "+extension);
         return selectedFile;
     }
     public File selectDirectory(){
@@ -42,11 +41,11 @@ public class FileHandler {
     public File selectEncryptedFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("C:\\"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Delfy encrypted files","*.enc"));
         selectedFile = fileChooser.showOpenDialog(null);
         String filename = FilenameUtils.getBaseName(selectedFile.getName());
-        System.out.println("selectEncryptedFile() filename:" + filename);
         extension = FilenameUtils.getExtension(filename);
-        System.out.println("selectEncryptedFile() extension:" + extension);
         return selectedFile;
     }
     public File getPath(){
