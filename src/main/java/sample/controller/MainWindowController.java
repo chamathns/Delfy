@@ -32,8 +32,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private JFXComboBox algoCombo;
     @FXML
-    private JFXPasswordField passwordFieldEncrypt;
-    
+    private JFXPasswordField passwordFieldEncrypt, passwordFieldDecrypt;
+
 
     public void setAlgoCombo(JFXComboBox algoCombo) {
         this.algoCombo = algoCombo;
@@ -105,8 +105,6 @@ public class MainWindowController implements Initializable {
 //        String ex1 = FilenameUtils.getExtension(textFieldEncryptFile.getText().trim());
 //        System.out.println(ex1);
 
-//        AES.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
-
         AES.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
         System.out.println(getAlgorithm());
         try {
@@ -114,18 +112,32 @@ public class MainWindowController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\EncryptedFile.txt"),getEncryptedData());
+//        File newfile = new File(textEncryptDirectory.getText().trim() + "\\file.txt");
+//        newfile.setReadOnly();
+
+//        String s = new String(data);
+//        String se = new String(getEncryptedData());
+//        String sd = new String(getDecryptedData());
+//        System.out.println("Original data: "+ s);
+//        System.out.println("Encrypted data: "+ se);
+//        System.out.println("Decrypted data: "+ sd);
+
+
+    }
+    public void decrypt(MouseEvent event){
+        getAlgorithm();
+        System.out.println(getAlgorithm());
+        System.out.println(encryptedFileName);
+        byte[] encryptedData = FileHandler.readFile(textFieldDecryptFile.getText().trim());
+        AES.setKeyValue(KeyHandler.generateKey(passwordFieldDecrypt.getText().trim()));
         try {
             decryptedData = AES.decrypt(encryptedData);
         }catch (Exception e){
             e.printStackTrace();
         }
-        String s = new String(data);
-        String se = new String(getEncryptedData());
-        String sd = new String(getDecryptedData());
-        System.out.println("Original data: "+ s);
-        System.out.println("Encrypted data: "+ se);
-        System.out.println("Decrypted data: "+ sd);
-        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\file.enc"),getEncryptedData());
+        FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\decryptedFile.txt"),getDecryptedData());
     }
 
     @Override
