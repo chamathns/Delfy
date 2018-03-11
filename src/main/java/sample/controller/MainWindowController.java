@@ -100,22 +100,20 @@ public class MainWindowController implements Initializable {
     }
     public void encrypt(MouseEvent event){
         setAlgorithm();
-        System.out.println(filename);
         byte[] data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
 //        String ex1 = FilenameUtils.getExtension(textFieldEncryptFile.getText().trim());
 //        System.out.println(ex1);
 
         AES.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
-        System.out.println(getAlgorithm());
         try {
             encryptedData = AES.encrypt(data);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\EncryptedFile.txt"),getEncryptedData());
-//        File newfile = new File(textEncryptDirectory.getText().trim() + "\\file.txt");
-//        newfile.setReadOnly();
+        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt"),getEncryptedData());
+        File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
+        newfile.setReadOnly();
 
 //        String s = new String(data);
 //        String se = new String(getEncryptedData());
@@ -128,8 +126,6 @@ public class MainWindowController implements Initializable {
     }
     public void decrypt(MouseEvent event){
         getAlgorithm();
-        System.out.println(getAlgorithm());
-        System.out.println(encryptedFileName);
         byte[] encryptedData = FileHandler.readFile(textFieldDecryptFile.getText().trim());
         AES.setKeyValue(KeyHandler.generateKey(passwordFieldDecrypt.getText().trim()));
         try {
@@ -137,7 +133,7 @@ public class MainWindowController implements Initializable {
         }catch (Exception e){
             e.printStackTrace();
         }
-        FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\decryptedFile.txt"),getDecryptedData());
+        FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + encryptedFileName + ").txt"),getDecryptedData());
     }
 
     @Override
