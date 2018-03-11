@@ -113,7 +113,7 @@ public class MainWindowController implements Initializable {
             e.printStackTrace();
         }
 
-        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\Encrypted " + filename +"." + extension +".enc" ),getEncryptedData());
+        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename +"." + extension +".enc" ),getEncryptedData());
 //        File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
 //        newfile.setReadOnly();
 
@@ -135,7 +135,7 @@ public class MainWindowController implements Initializable {
         }catch (Exception e){
             e.printStackTrace();
         }
-        FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + encryptedFileName + ")." + extension),getDecryptedData());
+        FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + FilenameUtils.getBaseName(encryptedFileName) +")."+extension),getDecryptedData());
     }
 
     @Override
