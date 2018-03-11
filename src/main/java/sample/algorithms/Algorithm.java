@@ -16,6 +16,10 @@ public class Algorithm {
         Algorithm.ALGO=ALGO;
     }
 
+    public static String getALGO() {
+        return ALGO;
+    }
+
     private static Key generateKey() {
         Key key = new SecretKeySpec(keyValue, ALGO);
         return key;

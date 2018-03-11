@@ -104,20 +104,14 @@ public class MainWindowController implements Initializable {
         setAlgorithm();
         String algo = getAlgorithm();
         byte[] data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
-        switch (algo){
-            case ("Blowfish"):
-            case ("AES"):
-                System.out.println("Encrypting with: " + algo);
-                Algorithm.setALGO(algo);
-                Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
-                try {
-                    encryptedData = Algorithm.encrypt(data);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
+        System.out.println("Encrypting with: " + algo);
+        Algorithm.setALGO(algo);
+        Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
+        try {
+            encryptedData = Algorithm.encrypt(data);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename + "." + extension + ".enc"), getEncryptedData());
         File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
         newfile.setReadOnly();
@@ -126,20 +120,14 @@ public class MainWindowController implements Initializable {
     public void decrypt(MouseEvent event){
         String algo = getAlgorithm();
         byte[] encryptedData = FileHandler.readFile(textFieldDecryptFile.getText().trim());
-        switch (algo){
-            case ("Blowfish"):
-            case ("AES"):
-                System.out.println("Decrypting with: " + algo);
-                Algorithm.setALGO(algo);
-                Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldDecrypt.getText().trim()));
-                try {
-                    decryptedData = AES.decrypt(encryptedData);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                break;
+        System.out.println("Decrypting with: " + algo);
+        Algorithm.setALGO(algo);
+        Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldDecrypt.getText().trim()));
+        try {
+            decryptedData = AES.decrypt(encryptedData);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
         FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + FilenameUtils.getBaseName(encryptedFileName) +")."+extension),getDecryptedData());
     }
 

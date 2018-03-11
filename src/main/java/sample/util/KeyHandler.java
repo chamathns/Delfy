@@ -4,6 +4,7 @@ import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class KeyHandler {
     private static KeyHandler instance = new KeyHandler();
@@ -15,7 +16,14 @@ public class KeyHandler {
     }
 
     public static byte[] generateKey(String userPassphrase){
-        Algorithm.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
+        switch (Algorithm.getALGO()){
+            case ("DES"):
+                byte[] key = Arrays.copyOfRange(masterKey.getBytes(),0,8);
+                Algorithm.setKeyValue(key);
+                break;
+            default:
+                Algorithm.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
+        }
         try {
            encryptedPassphrase = Algorithm.encrypt(userPassphrase.getBytes());
         } catch (Exception e) {
