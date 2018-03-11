@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
     private static final String masterKey = "2EA45ED5B21E3%K^";
-    private String algorithm, en_passphrase, de_passphrase, encryptedFileName, filename;
+    private String algorithm, en_passphrase, de_passphrase, encryptedFileName, filename, extension;
     private byte[] encryptedData, decryptedData;
     @FXML
     private JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
@@ -70,14 +70,16 @@ public class MainWindowController implements Initializable {
         if (event.getSource()==buttonSelectFile){
             File file = FileHandler.getInstance().selectFile();
             filename = FilenameUtils.getBaseName(file.getName());
-
+            extension = FileHandler.getInstance().getExtension();
             if (file!= null){
                 textFieldEncryptFile.setText(file.getPath().toString().trim());
             }
 
         }else if (event.getSource()==buttonSelectEncryptedFile){
-            File en_file = FileHandler.getInstance().selectEncryptedFile();
+            FileHandler instance = FileHandler.getInstance();
+            File en_file = instance.selectEncryptedFile();
             encryptedFileName = FilenameUtils.getBaseName(en_file.getName());
+            extension = instance.getExtension();
             if (en_file!= null){
                  textFieldDecryptFile.setText(en_file.getPath().toString().trim());
             }
@@ -111,9 +113,9 @@ public class MainWindowController implements Initializable {
             e.printStackTrace();
         }
 
-        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt"),getEncryptedData());
-        File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
-        newfile.setReadOnly();
+        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\Encrypted " + filename +"." + extension +".enc" ),getEncryptedData());
+//        File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
+//        newfile.setReadOnly();
 
 //        String s = new String(data);
 //        String se = new String(getEncryptedData());
@@ -133,7 +135,7 @@ public class MainWindowController implements Initializable {
         }catch (Exception e){
             e.printStackTrace();
         }
-        FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + encryptedFileName + ").txt"),getDecryptedData());
+        FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + encryptedFileName + ")." + extension),getDecryptedData());
     }
 
     @Override

@@ -3,6 +3,7 @@ package sample.util;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,15 +14,22 @@ import java.nio.file.Paths;
 public class FileHandler {
     private static FileHandler instance = new FileHandler();
     private File selectedFile;
+    private String extension;
 
     public static FileHandler getInstance(){
         return instance;
+    }
+
+    public String getExtension() {
+        return extension;
     }
 
     public File selectFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("C:\\"));
         selectedFile = fileChooser.showOpenDialog(null);
+        extension = FilenameUtils.getExtension(selectedFile.getPath());
+        System.out.println("selectFile() extension: "+extension);
         return selectedFile;
     }
     public File selectDirectory(){
@@ -34,9 +42,11 @@ public class FileHandler {
     public File selectEncryptedFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("C:\\"));
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("text files","*.txt"));
         selectedFile = fileChooser.showOpenDialog(null);
+        String filename = FilenameUtils.getBaseName(selectedFile.getName());
+        System.out.println("selectEncryptedFile() filename:" + filename);
+        extension = FilenameUtils.getExtension(filename);
+        System.out.println("selectEncryptedFile() extension:" + extension);
         return selectedFile;
     }
     public File getPath(){
