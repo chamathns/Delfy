@@ -15,7 +15,6 @@ import sample.util.KeyHandler;
 
 import java.io.File;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
@@ -100,32 +99,49 @@ public class MainWindowController implements Initializable {
             }
         }
     }
-    public void encrypt(MouseEvent event){
+    public void encrypt(MouseEvent event) {
         setAlgorithm();
+        String algo = getAlgorithm();
         byte[] data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
 //        String ex1 = FilenameUtils.getExtension(textFieldEncryptFile.getText().trim());
 //        System.out.println(ex1);
+        switch (algo) {
+            case ("AES"):
+                System.out.println("Encrypting with "+algo);
+                AES.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
+                try {
+                    encryptedData = AES.encrypt(data);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename + "." + extension + ".enc"), getEncryptedData());
+                File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
+                newfile.setReadOnly();
+                break;
+            case ("DES"):
+                //
+                break;
+            case ("Blowfish"):
+                //
+                break;
+            case ("IDEA"):
+                //
+                break;
 
-        AES.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
-        try {
-            encryptedData = AES.encrypt(data);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+    }
 
-        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename +"." + extension +".enc" ),getEncryptedData());
+//        AES.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
+//        try {
+//            encryptedData = AES.encrypt(data);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename +"." + extension +".enc" ),getEncryptedData());
 //        File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
 //        newfile.setReadOnly();
-
-//        String s = new String(data);
-//        String se = new String(getEncryptedData());
-//        String sd = new String(getDecryptedData());
-//        System.out.println("Original data: "+ s);
-//        System.out.println("Encrypted data: "+ se);
-//        System.out.println("Decrypted data: "+ sd);
-
-
-    }
+//    }
     public void decrypt(MouseEvent event){
         getAlgorithm();
         byte[] encryptedData = FileHandler.readFile(textFieldDecryptFile.getText().trim());
