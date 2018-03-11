@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import org.apache.commons.io.FilenameUtils;
 import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
-import sample.algorithms.Blowfish;
 import sample.util.FileHandler;
 import sample.util.KeyHandler;
 
@@ -38,7 +37,7 @@ public class MainWindowController implements Initializable {
 
     public void setAlgoCombo(JFXComboBox algoCombo) {
         this.algoCombo = algoCombo;
-        algoCombo.getItems().setAll("AES","DES","Blowfish","IDEA");
+        algoCombo.getItems().setAll("AES","Twofish","DES","Blowfish","IDEA");
         algoCombo.setValue(this.algoCombo.getItems().get(0));
     }
 
@@ -105,14 +104,20 @@ public class MainWindowController implements Initializable {
         setAlgorithm();
         String algo = getAlgorithm();
         byte[] data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
-        System.out.println("Encrypting with: " + algo);
-        Algorithm.setALGO(algo);
-        Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
-        try {
-            encryptedData = Algorithm.encrypt(data);
-        } catch (Exception e) {
-            e.printStackTrace();
+        switch (algo){
+            case ("Blowfish"):
+            case ("AES"):
+                System.out.println("Encrypting with: " + algo);
+                Algorithm.setALGO(algo);
+                Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
+                try {
+                    encryptedData = Algorithm.encrypt(data);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
         }
+
         FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename + "." + extension + ".enc"), getEncryptedData());
         File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
         newfile.setReadOnly();
@@ -121,14 +126,20 @@ public class MainWindowController implements Initializable {
     public void decrypt(MouseEvent event){
         String algo = getAlgorithm();
         byte[] encryptedData = FileHandler.readFile(textFieldDecryptFile.getText().trim());
-        System.out.println("Decrypting with: " + algo);
-        Algorithm.setALGO(algo);
-        Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldDecrypt.getText().trim()));
-        try {
-            decryptedData = AES.decrypt(encryptedData);
-        }catch (Exception e){
-            e.printStackTrace();
+        switch (algo){
+            case ("Blowfish"):
+            case ("AES"):
+                System.out.println("Decrypting with: " + algo);
+                Algorithm.setALGO(algo);
+                Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldDecrypt.getText().trim()));
+                try {
+                    decryptedData = AES.decrypt(encryptedData);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
         }
+
         FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + FilenameUtils.getBaseName(encryptedFileName) +")."+extension),getDecryptedData());
     }
 

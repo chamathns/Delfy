@@ -1,6 +1,7 @@
 package sample.util;
 
 import sample.algorithms.AES;
+import sample.algorithms.Algorithm;
 
 import java.nio.charset.StandardCharsets;
 
@@ -14,9 +15,9 @@ public class KeyHandler {
     }
 
     public static byte[] generateKey(String userPassphrase){
-        AES.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
+        Algorithm.setKeyValue(masterKey.getBytes(StandardCharsets.UTF_8));
         try {
-           encryptedPassphrase = AES.encrypt(userPassphrase.getBytes());
+           encryptedPassphrase = Algorithm.encrypt(userPassphrase.getBytes());
         } catch (Exception e) {
             e.printStackTrace();
         }

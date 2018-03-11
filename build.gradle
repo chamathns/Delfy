@@ -16,6 +16,8 @@ dependencies {
     compile 'com.jfoenix:jfoenix:8.0.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
+    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.59'
+
 }
 jar {
     baseName = 'gs-gradle'
