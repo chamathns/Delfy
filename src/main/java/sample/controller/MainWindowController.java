@@ -37,7 +37,7 @@ public class MainWindowController implements Initializable {
 
     public void setAlgoCombo(JFXComboBox algoCombo) {
         this.algoCombo = algoCombo;
-        algoCombo.getItems().setAll("AES","Twofish","DES","Blowfish","IDEA");
+        algoCombo.getItems().setAll("AES", "Blowfish", "DES", "RC2");
         algoCombo.setValue(this.algoCombo.getItems().get(0));
     }
 

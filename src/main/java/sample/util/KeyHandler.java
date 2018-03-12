@@ -3,6 +3,8 @@ package sample.util;
 import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
