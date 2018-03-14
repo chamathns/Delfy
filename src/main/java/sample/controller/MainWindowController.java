@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import org.apache.commons.io.FilenameUtils;
 import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
+import sample.util.DbConnect;
 import sample.util.FileHandler;
 import sample.util.KeyHandler;
 
@@ -134,6 +135,6 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setAlgoCombo(algoCombo);
-
+        DbConnect.getInstance().connect();
     }
 }
