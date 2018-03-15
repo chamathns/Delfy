@@ -5,6 +5,9 @@ import com.mongodb.client.MongoDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class UserData {
 //    private MongoDatabase database = DbConnect.getInstance().getDatabase();
 //    private MongoCollection userCollection = database.getCollection("user");
@@ -32,5 +35,12 @@ public class UserData {
     }
     public void saveUserProfile(){
         //
+    }
+    public static boolean validateName(String name) {
+        String regex = "^[\\p{L} .'-]+$";
+        Pattern pattern = Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(name);
+        return matcher.find();
+
     }
 }
