@@ -3,11 +3,13 @@ package sample.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 public class LogInController implements Initializable{
@@ -57,7 +60,33 @@ public class LogInController implements Initializable{
     }
     public void handleRegister (MouseEvent event) {
         try{
-            System.out.println(textFieldName.getText().trim());
+            String name = textFieldName.getText().trim() ;
+            if (!UserData.validateName(name)){
+                Alert alert = new Alert(Alert.AlertType.ERROR,"User name is not valid");
+                alert.showAndWait();
+            }
+
+//            String name = textFieldName.getText().trim() ;
+//            String email = textFieldEmail.getText().trim();
+//            String passphrase = passwordFieldKey.getText().trim();
+//            byte[] salt = KeyHandler.getInstance().generateSalt();
+//            byte[] encryptedPassphrase = KeyHandler.getInstance().getEncryptedPassphrase(passphrase,salt);
+//            UserProfile user = new UserProfile(name, email, encryptedPassphrase, salt);
+//            UserData.getInstance().addUserProfile(user);
+//            ObservableList<UserProfile> userProfiles = UserData.getInstance().getUserProfiles();
+//
+//            Iterator<UserProfile> iterator = userProfiles.iterator(;
+//            while (iterator.hasNext()){
+//                UserProfile profile = iterator.next();
+//                System.out.println("\n\n"+profile.getName() +"\n"+profile.getEmail()+"\n"+(profile.getEncryptedPassphrase().toString())+"\n"+(profile.getSalt().toString()));
+//            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    public void register(){
+        try{
             String name = textFieldName.getText().trim() ;
             String email = textFieldEmail.getText().trim();
             String passphrase = passwordFieldKey.getText().trim();
@@ -65,18 +94,16 @@ public class LogInController implements Initializable{
             byte[] encryptedPassphrase = KeyHandler.getInstance().getEncryptedPassphrase(passphrase,salt);
             UserProfile user = new UserProfile(name, email, encryptedPassphrase, salt);
             UserData.getInstance().addUserProfile(user);
-            System.out.println(UserData.getInstance().getUserProfiles());
+            ObservableList<UserProfile> userProfiles = UserData.getInstance().getUserProfiles();
 
+            Iterator<UserProfile> iterator = userProfiles.iterator();
+            while (iterator.hasNext()){
+                UserProfile profile = iterator.next();
+                System.out.println("\n\n"+profile.getName() +"\n"+profile.getEmail()+"\n"+(profile.getEncryptedPassphrase().toString())+"\n"+(profile.getSalt().toString()));
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
-//        user.setName(textFieldName.getText().trim());
-//        user.setEmail(textFieldEmail.getText().trim());
-//        user.setEncryptedPassphrase(KeyHandler.getInstance().getEncryptedPassphrase(passwordFieldKey.getText().trim(),salt));
-
-
     }
 
     @Override
