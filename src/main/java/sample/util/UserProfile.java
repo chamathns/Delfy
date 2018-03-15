@@ -1,17 +1,18 @@
 package sample.util;
 
-import sun.security.util.Password;
-
 public class UserProfile {
     private String name;
     private String email;
-    private Password password;
+    private byte[] encryptedPassphrase;
+    private byte[] salt;
 
-    public UserProfile(String name, String email, Password password){
+    public UserProfile(String name, String email, byte[] encryptedPassphrase, byte[] salt){
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.encryptedPassphrase = encryptedPassphrase;
+        this.salt = salt;
     }
+
 
     public String getName() {
         return name;
@@ -29,11 +30,19 @@ public class UserProfile {
         this.email = email;
     }
 
-    public Password getPassword() {
-        return password;
+    public byte[] getEncryptedPassphrase() {
+        return encryptedPassphrase;
     }
 
-    public void setPassword(Password password) {
-        this.password = password;
+    public void setEncryptedPassphrase(byte[] encryptedPassphrase) {
+        this.encryptedPassphrase = encryptedPassphrase;
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 }

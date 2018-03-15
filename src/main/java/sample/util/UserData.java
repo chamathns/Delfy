@@ -2,6 +2,7 @@ package sample.util;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class UserData {
@@ -23,6 +24,10 @@ public class UserData {
         userProfiles.add(userProfile);
     }
     public void loadUserProfiles(){
+        userProfiles = FXCollections.observableArrayList();
+        UserProfile user = new UserProfile("user","user@sample.com","passphrase".getBytes(),"salt".getBytes());
+        userProfiles.add(user);
+
         //
     }
     public void saveUserProfile(){
