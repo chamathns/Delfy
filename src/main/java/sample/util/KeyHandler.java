@@ -1,11 +1,12 @@
 package sample.util;
-
-import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.util.Arrays;
 
 public class KeyHandler {
@@ -32,5 +33,35 @@ public class KeyHandler {
             e.printStackTrace();
         }
         return encryptedPassphrase;
+    }
+    public boolean authenticate(String attemptedPassphrase, byte[] encryptedPassphrase, byte[] salt)
+            throws NoSuchAlgorithmException, InvalidKeySpecException{
+
+        byte[] encryptredAttemptedPassphrase = getEncryptedPassphrase(attemptedPassphrase, salt);
+        return Arrays.equals(encryptedPassphrase, encryptredAttemptedPassphrase);
+    }
+    public byte[] getEncryptedPassphrase(String password, byte[] salt)
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+
+        // PBKDF2 with SHA-1 as the hashing algorithm.
+        String algorithm = "PBKDF2WithHmacSHA1";
+        // SHA-1 generates 160 bit hashes, so that's what makes sense here
+        int derivedKeyLength = 160;
+        int iterations = 20000;
+
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, derivedKeyLength);
+        SecretKeyFactory f = SecretKeyFactory.getInstance(algorithm);
+
+        return f.generateSecret(spec).getEncoded();
+    }
+    public byte[] generateSalt() throws NoSuchAlgorithmException {
+
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+
+        // Generate a 8 byte (64 bit) salt as recommended by RSA PKCS5
+        byte[] salt = new byte[8];
+        random.nextBytes(salt);
+
+        return salt;
     }
 }
