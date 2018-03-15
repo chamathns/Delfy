@@ -135,6 +135,6 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setAlgoCombo(algoCombo);
-        DbConnect.getInstance().connect();
+
     }
 }

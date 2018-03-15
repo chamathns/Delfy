@@ -12,24 +12,28 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sample.util.DbConnect;
+import sample.util.KeyHandler;
+import sample.util.UserData;
+import sample.util.UserProfile;
 import sun.security.util.Password;
 
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ResourceBundle;
 
 public class LogInController implements Initializable{
     @FXML
-    private static JFXTextField textFieldName, textFieldEmail;
+    private JFXTextField textFieldName, textFieldEmail;
     @FXML
-    private static JFXButton buttonSignInPane, buttonRegisterPane, buttonSignIn;
+    private JFXButton buttonSignInPane, buttonRegisterPane, buttonSignIn;
     @FXML
-    private static AnchorPane paneSignIn, paneRegister;
+    private AnchorPane paneSignIn, paneRegister;
     @FXML
-    private static JFXPasswordField passwordFieldKey, passwordFieldKey_re;
-    @FXML
-    private static PasswordField passwordField;
+    private JFXPasswordField passwordFieldKey, passwordFieldKey_re;
 
     @FXML
     private void handlePane( MouseEvent event) {
@@ -51,13 +55,33 @@ public class LogInController implements Initializable{
         stage.setScene(scene);
         stage.show();
     }
-    public static void handleRegister (MouseEvent event){
-        String name = textFieldName.getText().trim();
-        String email = textFieldEmail.getText().trim();
+    public void handleRegister (MouseEvent event) {
+        try{
+            System.out.println(textFieldName.getText().trim());
+            String name = textFieldName.getText().trim() ;
+            String email = textFieldEmail.getText().trim();
+            String passphrase = passwordFieldKey.getText().trim();
+            byte[] salt = KeyHandler.getInstance().generateSalt();
+            byte[] encryptedPassphrase = KeyHandler.getInstance().getEncryptedPassphrase(passphrase,salt);
+            UserProfile user = new UserProfile(name, email, encryptedPassphrase, salt);
+            UserData.getInstance().addUserProfile(user);
+            System.out.println(UserData.getInstance().getUserProfiles());
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+//        user.setName(textFieldName.getText().trim());
+//        user.setEmail(textFieldEmail.getText().trim());
+//        user.setEncryptedPassphrase(KeyHandler.getInstance().getEncryptedPassphrase(passwordFieldKey.getText().trim(),salt));
+
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        UserData.getInstance().loadUserProfiles();
 
     }
 }
