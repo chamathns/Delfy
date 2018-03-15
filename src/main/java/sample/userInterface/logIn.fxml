@@ -20,6 +20,20 @@
             <children>
                 <JFXButton fx:id="buttonSignInPane" layoutY="173.0" onMouseClicked="#handlePane" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Sign In" />
                 <JFXButton fx:id="buttonRegisterPane" layoutY="225.0" onMouseClicked="#handlePane" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Register" />
+                <AnchorPane fx:id="paneSignIn" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
+                    <children>
+                        <JFXTextField fx:id="textEmailSignIn" labelFloat="true" layoutX="75.0" layoutY="172.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="e-mail">
+                     <font>
+                        <Font size="14.0" />
+                     </font></JFXTextField>
+                        <JFXButton fx:id="buttonSignIn" layoutX="193.0" layoutY="360.0" onMouseClicked="#handleSignIn" style="-fx-background-color: #0272A6;" text="Sign In" textFill="WHITE" />
+                  <JFXPasswordField labelFloat="true" layoutX="78.0" layoutY="248.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="enter your passphrase">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXPasswordField>
+                    </children>
+                </AnchorPane>
                 <AnchorPane fx:id="paneRegister" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
                     <children>
                         <JFXTextField fx:id="textFieldName" labelFloat="true" layoutX="78.0" layoutY="62.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="name">
@@ -30,26 +44,12 @@
                             <font>
                                 <Font size="14.0" />
                             </font></JFXTextField>
-                        <JFXButton fx:id="buttonSignUp" layoutX="192.0" layoutY="360.0" style="-fx-background-color: #0272A6;" text="Register" textFill="WHITE" />
-                  <JFXPasswordField layoutX="78.0" layoutY="212.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="Enter your passphrase">
+                        <JFXButton fx:id="buttonRegister" layoutX="192.0" layoutY="360.0" style="-fx-background-color: #0272A6;" text="Register" textFill="WHITE" />
+                  <JFXPasswordField fx:id="passwordFieldKey" layoutX="78.0" layoutY="212.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="Enter your passphrase">
                      <font>
                         <Font size="14.0" />
                      </font></JFXPasswordField>
-                  <JFXPasswordField layoutX="78.0" layoutY="287.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="Re-enter your passphrase">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXPasswordField>
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="paneSignIn" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
-                    <children>
-                        <JFXTextField fx:id="textEmailSignIn" labelFloat="true" layoutX="75.0" layoutY="172.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="e-mail">
-                     <font>
-                        <Font size="14.0" />
-                     </font></JFXTextField>
-                        <JFXButton fx:id="buttonSignIn" layoutX="193.0" layoutY="360.0" style="-fx-background-color: #0272A6;" text="Sign In" textFill="WHITE" onMouseClicked="#handleSignIn" />
-                  <JFXPasswordField labelFloat="true" layoutX="78.0" layoutY="248.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="enter your passphrase">
+                  <JFXPasswordField fx:id="passwordFieldKey_re" layoutX="78.0" layoutY="287.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="Re-enter your passphrase">
                      <font>
                         <Font size="14.0" />
                      </font>
