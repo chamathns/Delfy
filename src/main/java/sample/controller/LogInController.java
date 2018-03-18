@@ -59,9 +59,8 @@ public class LogInController implements Initializable{
             String passphrase_re = passwordFieldKey_re.getText().trim();
 
             if (!UserData.validateName(name)){
-//                Alert alert = new Alert(Alert.AlertType.ERROR,"User name is not valid");
-//                alert.showAndWait();
-                textFieldName.setStyle(".text-field{-fx-focu} ");
+                Alert alert = new Alert(Alert.AlertType.ERROR,"User name is not valid");
+                alert.showAndWait();
 
                 textFieldName.clear();
 
