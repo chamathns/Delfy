@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import sample.util.KeyHandler;
 import sample.util.UserData;
 import sample.util.UserProfile;
+
+import javax.print.DocFlavor;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
@@ -23,13 +25,13 @@ import java.util.ResourceBundle;
 
 public class LogInController implements Initializable{
     @FXML
-    private JFXTextField textFieldName, textFieldEmail;
+    private JFXTextField textFieldName, textFieldEmail, textEmailSignIn;
     @FXML
     private JFXButton buttonSignInPane, buttonRegisterPane, buttonSignIn,buttonRegister;
     @FXML
     private AnchorPane paneSignIn, paneRegister;
     @FXML
-    private JFXPasswordField passwordFieldKey, passwordFieldKey_re;
+    private JFXPasswordField passwordFieldKey , passwordFieldKey_re, passwordFieldSignIn ;
 
     @FXML
     private void handlePane( MouseEvent event) {
@@ -41,15 +43,36 @@ public class LogInController implements Initializable{
         }
     }
 
-    public void handleSignIn (MouseEvent event) throws IOException{
-        Stage stage;
-        Parent root;
+    public void handleSignIn (MouseEvent event) {
+        try{
+            String email = textEmailSignIn.getText().trim();
+            String logInPassphrase = passwordFieldSignIn.getText().trim();
+            if (!UserData.validateEmail(email)){
+                Alert alert = new Alert(Alert.AlertType.ERROR,"User e-mail is not valid");
+                alert.showAndWait();
+                textEmailSignIn.clear();
+            }else
+                //load data from database
+                //check whether user input email matches a database entry
+                if (!UserData.validatePassphrase(logInPassphrase,logInPassphrase)){
+                Alert alert = new Alert(Alert.AlertType.ERROR,"passphrase is incorrect");
+                alert.showAndWait();
+                passwordFieldSignIn.clear();
+            }else {
+                    Stage stage;
+                    Parent root;
 
-        stage=(Stage) buttonSignIn.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/sample/userInterface/mainWindow.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+                    stage=(Stage) buttonSignIn.getScene().getWindow();
+                    root = FXMLLoader.load(getClass().getResource("/sample/userInterface/mainWindow.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
     public void handleRegister (MouseEvent event) {
         try{
