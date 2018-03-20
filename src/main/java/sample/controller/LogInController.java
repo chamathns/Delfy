@@ -122,6 +122,7 @@ public class LogInController implements Initializable{
             byte[] encryptedPassphrase = KeyHandler.getInstance().getEncryptedPassphrase(passphrase,salt);
             UserProfile user = new UserProfile(name, email, encryptedPassphrase, salt);
             UserData.getInstance().addUserProfile(user);
+            UserData.getInstance().saveUserProfile(user);
             ObservableList<UserProfile> userProfiles = UserData.getInstance().getUserProfiles();
 
             Iterator<UserProfile> iterator = userProfiles.iterator();
@@ -129,6 +130,8 @@ public class LogInController implements Initializable{
                 UserProfile profile = iterator.next();
                 System.out.println("\n\n"+profile.getName() +"\n"+profile.getEmail()+"\n"+(profile.getEncryptedPassphrase().toString())+"\n"+(profile.getSalt().toString()));
             }
+            System.out.println("DB fetch: \n");
+            UserData.getInstance().loadUserProfiles();
         }catch (Exception e){
             e.printStackTrace();
         }
