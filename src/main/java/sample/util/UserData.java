@@ -5,13 +5,15 @@ import com.mongodb.client.MongoDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import org.bson.Document;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserData {
-//    private MongoDatabase database = DbConnect.getInstance().getDatabase();
-//    private MongoCollection userCollection = database.getCollection("user");
+    private MongoDatabase database = DbConnect.getInstance().getDatabase();
+    private MongoCollection userCollection = database.getCollection("users");
 
     private ObservableList<UserProfile> userProfiles;
     private static UserData instance = new UserData();
@@ -29,13 +31,17 @@ public class UserData {
     }
     public void loadUserProfiles(){
         userProfiles = FXCollections.observableArrayList();
-        UserProfile user = new UserProfile("user","user@sample.com","passphrase".getBytes(),"salt".getBytes());
-        userProfiles.add(user);
-
-        //
+        ArrayList<Document> dbUserProfiles = (ArrayList<Document>)userCollection.find().into(new ArrayList<Document>());
+        for (Document document: dbUserProfiles){
+            System.out.println(document);
+        }
     }
-    public void saveUserProfile(){
-        //
+    public void saveUserProfile(UserProfile userProfile){
+        Document doc = new Document("_id",userProfile.getEmail())
+                .append("name",userProfile.getName())
+                .append("encryptedPassphrase",userProfile.getEncryptedPassphrase())
+                .append("salt",userProfile.getSalt());
+        userCollection.insertOne(doc);
     }
     public static boolean validateName(String name) {
         String regex = "^[\\p{L} .'-]+$";

@@ -14,6 +14,7 @@ public class UserProfile {
     }
 
 
+
     public String getName() {
         return name;
     }
