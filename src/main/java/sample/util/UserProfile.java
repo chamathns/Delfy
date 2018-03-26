@@ -13,7 +13,9 @@ public class UserProfile {
         this.salt = salt;
     }
 
+    public UserProfile(){
 
+    }
 
     public String getName() {
         return name;
