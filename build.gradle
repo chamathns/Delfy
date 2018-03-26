@@ -17,6 +17,8 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.controlsfx', name: 'controlsfx', version: '9.0.0'
     compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.59'
+    testCompile "org.testfx:testfx-core:4.0.13-alpha"
+    testCompile "org.testfx:testfx-junit:4.0.13-alpha"
 
 }
 jar {

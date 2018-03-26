@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.bson.Document;
 import sample.util.KeyHandler;
 import sample.util.UserData;
 import sample.util.UserProfile;
@@ -20,10 +21,12 @@ import sample.util.UserProfile;
 import javax.print.DocFlavor;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
 public class LogInController implements Initializable{
+    public static ArrayList<Document> userProfiles;
     @FXML
     private JFXTextField textFieldName, textFieldEmail, textEmailSignIn;
     @FXML
@@ -52,6 +55,12 @@ public class LogInController implements Initializable{
                 alert.showAndWait();
                 textEmailSignIn.clear();
             }else
+                if (!UserData.getInstance().authenticateUser(email)){
+                    Alert alert = new Alert(Alert.AlertType.ERROR,"User e-mail is not valid");
+                    alert.showAndWait();
+                    textEmailSignIn.clear();
+                }else
+
                 //load data from database
                 //check whether user input email matches a database entry
                 if (!UserData.validatePassphrase(logInPassphrase,logInPassphrase)){
@@ -98,14 +107,11 @@ public class LogInController implements Initializable{
                 passwordFieldKey_re.clear();
             }else{
                 register();
-                Stage stage;
-                Parent root;
-
-                stage = (Stage)buttonRegister.getScene().getWindow();
-                root = FXMLLoader.load(getClass().getResource("/sample/userInterface/mainWindow.fxml"));
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+                paneSignIn.toFront();
+                textFieldName.clear();
+                textFieldEmail.clear();
+                passwordFieldKey.clear();
+                passwordFieldKey_re.clear();
             }
 
         }catch (Exception e){
@@ -130,8 +136,7 @@ public class LogInController implements Initializable{
                 UserProfile profile = iterator.next();
                 System.out.println("\n\n"+profile.getName() +"\n"+profile.getEmail()+"\n"+(profile.getEncryptedPassphrase().toString())+"\n"+(profile.getSalt().toString()));
             }
-            System.out.println("DB fetch: \n");
-            UserData.getInstance().loadUserProfiles();
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -140,6 +145,14 @@ public class LogInController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         UserData.getInstance().loadUserProfiles();
+        UserProfile profile = UserData.getUserData("chamath3610@gmail.com");
+        if (profile.getName()!= null){
+            System.out.println("profile loaded");
+
+        }else {
+            System.out.println("no profile found");
+        }
+//        System.out.println("\n\n"+profile.getName() +"\n"+profile.getEmail()+"\n"+(profile.getEncryptedPassphrase().toString())+"\n"+(profile.getSalt().toString()));
 
     }
 }
