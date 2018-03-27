@@ -19,6 +19,7 @@ dependencies {
     compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.59'
     testCompile "org.testfx:testfx-core:4.0.13-alpha"
     testCompile "org.testfx:testfx-junit:4.0.13-alpha"
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
 
 }
 jar {

@@ -35,11 +35,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DbConnect.getInstance().connect();
-
         launch(args);
-//        MongoClient mongoClient = new MongoClient("localhost", 27017);
-//        System.out.println("Server connection successful");
-
-
     }
 }

@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import org.apache.commons.io.FilenameUtils;
 import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
-import sample.util.DbConnect;
 import sample.util.FileHandler;
 import sample.util.KeyHandler;
 
