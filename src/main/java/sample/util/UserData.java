@@ -1,13 +1,17 @@
 package sample.util;
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.bson.Document;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.apache.commons.codec.binary.Base64.decodeBase64;
+import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 public class UserData {
     private static MongoDatabase database = DbConnect.getInstance().getDatabase();
@@ -38,20 +42,21 @@ public class UserData {
         for (Document document : findIterable){
             String name = document.get("name").toString().trim();
             String email1 = document.get("_id").toString().trim();
-            byte[] en_passphrase = document.get("encryptedPassphrase").toString().trim().getBytes();
-            byte[] salt = document.get("salt").toString().trim().getBytes();
+            byte[] en_passphrase = decodeBase64(document.get("encryptedPassphrase").toString().trim());
+            byte[] salt = decodeBase64(document.get("salt").toString().trim());
             user = new UserProfile(name,email1,en_passphrase,salt);
             UserData.getInstance().addUserProfile(user);
-
         }
         return user;
     }
 
     public void saveUserProfile(UserProfile userProfile){
+        String encryptedPassphrase = encodeBase64String(userProfile.getEncryptedPassphrase());
+        String salt = encodeBase64String(userProfile.getSalt());
         Document doc = new Document("_id",userProfile.getEmail())
                 .append("name",userProfile.getName())
-                .append("encryptedPassphrase",new String(userProfile.getEncryptedPassphrase()))
-                .append("salt",new String(userProfile.getSalt()));
+                .append("encryptedPassphrase",encryptedPassphrase)
+                .append("salt",salt);
         userCollection.insertOne(doc);
     }
 
@@ -100,14 +105,9 @@ public class UserData {
         return flag;
     }
 
-    public  boolean authenticateUser(String email){
-        boolean flag = false;
-        BasicDBObject query = new BasicDBObject();
-        query.put("_id",email);
-        if (userCollection.find(query)!= null){
+    public  boolean authenticateUser(String email, String passphrase) throws InvalidKeySpecException, NoSuchAlgorithmException {
 
-        }
-
-        return flag;
+        UserProfile user = UserData.getUserData(email);
+        return KeyHandler.getInstance().authenticate(passphrase,user.getEncryptedPassphrase(),user.getSalt());
     }
 }

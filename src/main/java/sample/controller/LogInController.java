@@ -17,9 +17,6 @@ import org.bson.Document;
 import sample.util.KeyHandler;
 import sample.util.UserData;
 import sample.util.UserProfile;
-
-import javax.print.DocFlavor;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -50,23 +47,12 @@ public class LogInController implements Initializable{
         try{
             String email = textEmailSignIn.getText().trim();
             String logInPassphrase = passwordFieldSignIn.getText().trim();
-            if (!UserData.validateEmail(email)){
-                Alert alert = new Alert(Alert.AlertType.ERROR,"User e-mail is not valid");
+            if (!UserData.getInstance().authenticateUser(email,logInPassphrase)){
+                Alert alert = new Alert(Alert.AlertType.ERROR,"userID or passphrase incorrect");
                 alert.showAndWait();
                 textEmailSignIn.clear();
-            }else
-                if (!UserData.getInstance().authenticateUser(email)){
-                    Alert alert = new Alert(Alert.AlertType.ERROR,"User e-mail is not valid");
-                    alert.showAndWait();
-                    textEmailSignIn.clear();
-                }else
-
-                //load data from database
-                //check whether user input email matches a database entry
-                if (!UserData.validatePassphrase(logInPassphrase,logInPassphrase)){
-                Alert alert = new Alert(Alert.AlertType.ERROR,"passphrase is incorrect");
-                alert.showAndWait();
                 passwordFieldSignIn.clear();
+
             }else {
                     Stage stage;
                     Parent root;
@@ -145,14 +131,5 @@ public class LogInController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         UserData.getInstance().loadUserProfiles();
-        UserProfile profile = UserData.getUserData("chamath3610@gmail.com");
-        if (profile.getName()!= null){
-            System.out.println("profile loaded");
-
-        }else {
-            System.out.println("no profile found");
-        }
-//        System.out.println("\n\n"+profile.getName() +"\n"+profile.getEmail()+"\n"+(profile.getEncryptedPassphrase().toString())+"\n"+(profile.getSalt().toString()));
-
     }
 }
