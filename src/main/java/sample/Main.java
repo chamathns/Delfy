@@ -30,6 +30,7 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         //scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
