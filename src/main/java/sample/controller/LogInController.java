@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 
 public class LogInController implements Initializable{
     public static ArrayList<Document> userProfiles;
+    private double xOffset = 0;
+    private double yOffset = 0;
     @FXML
     private JFXTextField textFieldName, textFieldEmail, textEmailSignIn;
     @FXML
@@ -47,25 +49,40 @@ public class LogInController implements Initializable{
         try{
             String email = textEmailSignIn.getText().trim();
             String logInPassphrase = passwordFieldSignIn.getText().trim();
-            if (!UserData.getInstance().authenticateUser(email,logInPassphrase)){
-                Alert alert = new Alert(Alert.AlertType.ERROR,"userID or passphrase incorrect");
-                alert.showAndWait();
-                textEmailSignIn.clear();
-                passwordFieldSignIn.clear();
 
-            }else {
-                    Stage stage;
-                    Parent root;
+            if (UserData.getInstance().authenticateUser(email,logInPassphrase)){
+                Stage stage;
+                Parent root;
 
-                    stage=(Stage) buttonSignIn.getScene().getWindow();
-                    root = FXMLLoader.load(getClass().getResource("/sample/userInterface/mainWindow.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
+                stage=(Stage) buttonSignIn.getScene().getWindow();
+                root = FXMLLoader.load(getClass().getResource("/sample/userInterface/mainWindow.fxml"));
+                root.setOnMousePressed(e -> {
+                    xOffset = e.getSceneX();
+                    yOffset = e.getSceneY();
+                });
+                root.setOnMouseDragged(e -> {
+                    stage.setX(e.getScreenX() - xOffset);
+                    stage.setY(e.getScreenY() - yOffset);
+                });
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
                 }
+                else {
+                Alert alert = new Alert(Alert.AlertType.ERROR,"passphrase is incorrect");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+                passwordFieldSignIn.clear();
+            }
 
         }catch (Exception e){
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR,"userID or passphrase incorrect");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            textEmailSignIn.clear();
+            passwordFieldSignIn.clear();
+
         }
 
     }
