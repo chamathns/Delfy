@@ -14,10 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.bson.Document;
-import org.controlsfx.control.decoration.Decorator;
-import org.controlsfx.control.decoration.StyleClassDecoration;
-import org.controlsfx.validation.ValidationSupport;
-import org.controlsfx.validation.Validator;
 import sample.util.KeyHandler;
 import sample.util.UserData;
 import sample.util.UserProfile;
@@ -51,27 +47,9 @@ public class LogInController implements Initializable{
 
     public void handleSignIn (MouseEvent event) {
         try{
-//            ValidationSupport validation = new ValidationSupport();
-//            validation.registerValidator(textEmailSignIn, Validator.createEmptyValidator("User ID is required"));
-//            Decorator.addDecoration(textEmailSignIn,new StyleClassDecoration("warning"));
             String email = textEmailSignIn.getText().trim();
             String logInPassphrase = passwordFieldSignIn.getText().trim();
-//            if (!UserData.getInstance().authenticateUser(email,logInPassphrase)){
-//                Alert alert = new Alert(Alert.AlertType.ERROR,"userID or passphrase incorrect");
-//                alert.setHeaderText(null);
-//                alert.showAndWait();
-//                textEmailSignIn.clear();
-//                passwordFieldSignIn.clear();
-//
-//            }else {
-//                    Stage stage;
-//                    Parent root;
-//
-//                    stage=(Stage) buttonSignIn.getScene().getWindow();
-//                    root = FXMLLoader.load(getClass().getResource("/sample/userInterface/mainWindow.fxml"));
-//                    Scene scene = new Scene(root);
-//                    stage.setScene(scene);
-//                    stage.show();
+
             if (UserData.getInstance().authenticateUser(email,logInPassphrase)){
                 Stage stage;
                 Parent root;
