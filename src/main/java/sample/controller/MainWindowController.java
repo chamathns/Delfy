@@ -30,15 +30,14 @@ public class MainWindowController implements Initializable {
     @FXML
     private AnchorPane paneEncrypt, paneDecrypt, paneRecents;
     @FXML
-    private JFXComboBox algoCombo;
+    private JFXComboBox algoCombo, algoComboDec;
     @FXML
     private JFXPasswordField passwordFieldEncrypt, passwordFieldDecrypt;
 
 
     public void setAlgoCombo(JFXComboBox algoCombo) {
-        this.algoCombo = algoCombo;
         algoCombo.getItems().setAll("AES", "Blowfish", "DES", "RC2");
-        algoCombo.setValue(this.algoCombo.getItems().get(0));
+        algoCombo.setValue(algoCombo.getItems().get(0));
     }
 
     public String getAlgorithm() {
@@ -47,6 +46,10 @@ public class MainWindowController implements Initializable {
     public void setAlgorithm() {
         this.algorithm = algoCombo.getValue().toString();
     }
+    public void setDecAlgorithm(){
+        this.algorithm = algoComboDec.getValue().toString();
+    }
+
 
     public byte[] getEncryptedData() {
         return encryptedData;
@@ -67,24 +70,27 @@ public class MainWindowController implements Initializable {
         }
     }
     public void filePicker(MouseEvent event){
-        if (event.getSource()==buttonSelectFile){
-            File file = FileHandler.getInstance().selectFile();
-            filename = FilenameUtils.getBaseName(file.getName());
-            extension = FileHandler.getInstance().getExtension();
-            if (file!= null){
-                textFieldEncryptFile.setText(file.getPath().toString().trim());
-            }
+        try{
+            if (event.getSource()==buttonSelectFile){
+                File file = FileHandler.getInstance().selectFile();
+                filename = FilenameUtils.getBaseName(file.getName());
+                extension = FileHandler.getInstance().getExtension();
+                if (file!= null){
+                    textFieldEncryptFile.setText(file.getPath().toString().trim());
+                }
 
-        }else if (event.getSource()==buttonSelectEncryptedFile){
-            FileHandler instance = FileHandler.getInstance();
-            File en_file = instance.selectEncryptedFile();
-            encryptedFileName = FilenameUtils.getBaseName(en_file.getName());
-            extension = instance.getExtension();
-            if (en_file!= null){
-                 textFieldDecryptFile.setText(en_file.getPath().toString().trim());
+            }else if (event.getSource()==buttonSelectEncryptedFile){
+                FileHandler instance = FileHandler.getInstance();
+                File en_file = instance.selectEncryptedFile();
+                encryptedFileName = FilenameUtils.getBaseName(en_file.getName());
+                extension = instance.getExtension();
+                if (en_file!= null){
+                    textFieldDecryptFile.setText(en_file.getPath().toString().trim());
+                }
             }
+        }catch (Exception e){
+
         }
-
     }
 
     public void directoryPicker(MouseEvent event){
@@ -115,9 +121,13 @@ public class MainWindowController implements Initializable {
         FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename + "." + extension + ".enc"), getEncryptedData());
         File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
         newfile.setReadOnly();
+        textFieldEncryptFile.clear();
+        passwordFieldEncrypt.clear();
+        textEncryptDirectory.clear();
     }
 
     public void decrypt(MouseEvent event){
+        setDecAlgorithm();
         String algo = getAlgorithm();
         byte[] encryptedData = FileHandler.readFile(textFieldDecryptFile.getText().trim());
         System.out.println("Decrypting with: " + algo);
@@ -129,11 +139,15 @@ public class MainWindowController implements Initializable {
             e.printStackTrace();
         }
         FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + FilenameUtils.getBaseName(encryptedFileName) +")."+extension),getDecryptedData());
+        textFieldDecryptFile.clear();
+        textDecryptDirectory.clear();
+        passwordFieldDecrypt.clear();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setAlgoCombo(algoCombo);
+        setAlgoCombo(algoComboDec);
 
     }
 }
