@@ -95,16 +95,19 @@ public class LogInController implements Initializable{
 
             if (!UserData.validateName(name)){
                 Alert alert = new Alert(Alert.AlertType.ERROR,"User name is not valid");
+                alert.setHeaderText(null);
                 alert.showAndWait();
 
                 textFieldName.clear();
 
             }else if (!UserData.validateEmail(email)){
                 Alert alert = new Alert(Alert.AlertType.ERROR,"User e-mail is not valid");
+                alert.setHeaderText(null);
                 alert.showAndWait();
                 textFieldEmail.clear();
             }else if(!UserData.validatePassphrase(passphrase,passphrase_re)){
                 Alert alert = new Alert(Alert.AlertType.ERROR,"passphrase mismatch or the passphrase is not valid");
+                alert.setHeaderText(null);
                 alert.showAndWait();
                 passwordFieldKey.clear();
                 passwordFieldKey_re.clear();
