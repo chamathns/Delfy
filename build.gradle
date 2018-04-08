@@ -20,6 +20,7 @@ dependencies {
     testCompile "org.testfx:testfx-core:4.0.13-alpha"
     testCompile "org.testfx:testfx-junit:4.0.13-alpha"
     compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
+    compile 'de.jensd:fontawesomefx-commons:9.1.2'
 
 }
 jar {
