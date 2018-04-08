@@ -1,20 +1,31 @@
 package sample.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
 import sample.util.FileHandler;
 import sample.util.KeyHandler;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,6 +44,8 @@ public class MainWindowController implements Initializable {
     private JFXComboBox algoCombo, algoComboDec;
     @FXML
     private JFXPasswordField passwordFieldEncrypt, passwordFieldDecrypt;
+    @FXML
+    private StackPane mainStackPane;
 
 
     public void setAlgoCombo(JFXComboBox algoCombo) {
@@ -65,10 +78,21 @@ public class MainWindowController implements Initializable {
             paneEncrypt.toFront();
         }else if (event.getSource()==btnDecryptPane){
             paneDecrypt.toFront();
-        }else if (event.getSource()==btnRecentsPane){
-            paneRecents.toFront();
         }
     }
+    @FXML
+    public void showRecentFilesDialog(MouseEvent event) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/userInterface/recentFilesWindow.fxml"));
+        JFXDialogLayout content = new JFXDialogLayout();
+        StackPane pane = fxmlLoader.load();
+
+        JFXDialog dialog1 = new JFXDialog(mainStackPane,pane,JFXDialog.DialogTransition.CENTER);
+        dialog1.show();
+
+
+    }
+
     public void filePicker(MouseEvent event){
         try{
             if (event.getSource()==buttonSelectFile){
@@ -148,6 +172,5 @@ public class MainWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setAlgoCombo(algoCombo);
         setAlgoCombo(algoComboDec);
-
     }
 }
