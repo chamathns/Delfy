@@ -45,7 +45,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private JFXPasswordField passwordFieldEncrypt, passwordFieldDecrypt;
     @FXML
-    private StackPane mainStackPane;
+    private StackPane mainStackPane ;
 
 
     public void setAlgoCombo(JFXComboBox algoCombo) {
@@ -113,8 +113,9 @@ public class MainWindowController implements Initializable {
                 }
             }
         }catch (Exception e){
-
+//            errorHandler("File not selected");
         }
+
     }
 
     public void directoryPicker(MouseEvent event){
@@ -140,11 +141,15 @@ public class MainWindowController implements Initializable {
         try {
             encryptedData = Algorithm.encrypt(data);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getClass().toString());
+            if (e.getClass() == IOException.class){
+
+            }
         }
         FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename + "." + extension + ".enc"), getEncryptedData());
         File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
         newfile.setReadOnly();
+        System.out.println("Encryption completed!");
         textFieldEncryptFile.clear();
         passwordFieldEncrypt.clear();
         textEncryptDirectory.clear();
@@ -163,10 +168,18 @@ public class MainWindowController implements Initializable {
             e.printStackTrace();
         }
         FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + FilenameUtils.getBaseName(encryptedFileName) +")."+extension),getDecryptedData());
+        System.out.println("Decryption completed!");
         textFieldDecryptFile.clear();
         textDecryptDirectory.clear();
         passwordFieldDecrypt.clear();
     }
+//    public void errorHandler(String promptText){
+//        JFXDialogLayout content = new JFXDialogLayout();
+//        content.setHeading(new Text("Error"));
+//        content.setBody(new Text(promptText));
+//        JFXDialog dialog = new JFXDialog(mainStackPane,content,JFXDialog.DialogTransition.CENTER);
+//        dialog.show();
+//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

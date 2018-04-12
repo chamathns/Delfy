@@ -56,7 +56,8 @@ public class UserData {
         Document doc = new Document("_id",userProfile.getEmail())
                 .append("name",userProfile.getName())
                 .append("encryptedPassphrase",encryptedPassphrase)
-                .append("salt",salt);
+                .append("salt",salt)
+                .append("files", new Document("file","file1").append("date","date1").append("location","path1").append("algorithm","AES"));
         userCollection.insertOne(doc);
     }
 
