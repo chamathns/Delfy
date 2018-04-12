@@ -19,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.bson.Document;
+import sample.util.Effects;
 import sample.util.KeyHandler;
 import sample.util.UserData;
 import sample.util.UserProfile;
@@ -44,14 +45,14 @@ public class LogInController implements Initializable{
     private void handlePane( MouseEvent event) {
 
         if (event.getSource()==buttonRegisterPane){
-            sceneInAnimator(paneRegister,1000,Interpolator.EASE_IN);
+            Effects.sceneAnimator(paneRegister,1000,Interpolator.LINEAR);
             paneBlank1.toBack();
             paneBlank.toFront();
             paneRegister.toFront();
 
 
         }else if (event.getSource()==buttonSignInPane){
-            sceneInAnimator(paneSignIn,1000,Interpolator.EASE_IN);
+            Effects.sceneAnimator(paneSignIn,1000,Interpolator.LINEAR);
             paneBlank.toBack();
             paneBlank1.toFront();
             paneSignIn.toFront();
@@ -77,8 +78,8 @@ public class LogInController implements Initializable{
                     stage.setX(e.getScreenX() - xOffset);
                     stage.setY(e.getScreenY() - yOffset);
                 });
+                Effects.sceneAnimator(root,2000,Interpolator.EASE_IN);
 
-                sceneInAnimator(root,2000,Interpolator.EASE_IN);
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.setResizable(false);
@@ -161,20 +162,6 @@ public class LogInController implements Initializable{
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-    public void sceneInAnimator(Node node, double time, Interpolator interpolator){
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(time),node);
-        fadeTransition.setFromValue(0.0);
-        fadeTransition.setToValue(1.0);
-        fadeTransition.setInterpolator(interpolator);
-        fadeTransition.play();
-    }
-    public void sceneOutAnimator(Node node, double time, Interpolator interpolator){
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(time),node);
-        fadeTransition.setFromValue(1.0);
-        fadeTransition.setToValue(0.0);
-        fadeTransition.setInterpolator(interpolator);
-        fadeTransition.play();
     }
 
     @Override
