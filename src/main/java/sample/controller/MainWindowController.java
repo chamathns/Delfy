@@ -1,11 +1,14 @@
 package sample.controller;
 
 import com.jfoenix.controls.*;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
@@ -17,9 +20,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.apache.commons.io.FilenameUtils;
 import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
+import sample.util.Effects;
 import sample.util.FileHandler;
 import sample.util.KeyHandler;
 
@@ -39,7 +44,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private JFXTextField textFieldEncryptFile, textFieldDecryptFile, textEncryptDirectory, textDecryptDirectory;
     @FXML
-    private AnchorPane paneEncrypt, paneDecrypt, paneRecents;
+    private AnchorPane paneEncrypt, paneDecrypt, paneBlankDecrypt, paneBlankEncrypt;
     @FXML
     private JFXComboBox algoCombo, algoComboDec;
     @FXML
@@ -75,8 +80,14 @@ public class MainWindowController implements Initializable {
     @FXML
     private void handlePane(MouseEvent event){
         if (event.getSource()==btnEncryptPane){
+            Effects.sceneAnimator(paneEncrypt,1000,Interpolator.LINEAR);
+            paneBlankEncrypt.toBack();
+            paneBlankDecrypt.toFront();
             paneEncrypt.toFront();
         }else if (event.getSource()==btnDecryptPane){
+            Effects.sceneAnimator(paneDecrypt,1000,Interpolator.LINEAR);
+            paneBlankDecrypt.toBack();
+            paneBlankEncrypt.toFront();
             paneDecrypt.toFront();
         }
     }

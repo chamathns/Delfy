@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainWindowController">
+<StackPane fx:id="mainStackPane" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainWindowController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);">
           <children>
@@ -36,41 +35,9 @@
                         </Pane>
                      </children>
                   </AnchorPane>
-                      <AnchorPane fx:id="paneDecrypt" layoutX="658.0" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
-                          <children>
-                        <Label layoutX="172.0" layoutY="57.0" text="Decrypt">
-                           <font>
-                              <Font size="32.0" />
-                           </font>
-                        </Label>
-                        <JFXButton fx:id="buttonSelectEncryptedFile" layoutX="386.0" layoutY="228.0" onMouseClicked="#filePicker" prefHeight="20.0" prefWidth="37.0" text="..." />
-                        <JFXTextField fx:id="textFieldDecryptFile" editable="false" layoutX="75.0" layoutY="228.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to decrypt">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXTextField>
-                              <JFXButton fx:id="buttonDecrypt" layoutX="192.0" layoutY="420.0" onMouseClicked="#decrypt" style="-fx-background-color: #0272A6;" text="Decrypt" textFill="WHITE" />
-                        <JFXTextField fx:id="textDecryptDirectory" editable="false" layoutX="75.0" layoutY="356.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="specify the destination directory">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXButton fx:id="buttonDecryptDirectory" layoutX="386.0" layoutY="356.0" onMouseClicked="#directoryPicker" prefHeight="20.0" prefWidth="37.0" text="..." />
-                        <JFXPasswordField fx:id="passwordFieldDecrypt" layoutX="75.0" layoutY="292.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="Enter passphrase">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXPasswordField>
-                        <JFXComboBox fx:id="algoComboDec" layoutX="75.0" layoutY="164.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" visibleRowCount="4" />
-                        <Label layoutX="75.0" layoutY="131.0" opacity="0.75" text="Select the decryption algorithm" textFill="#4d4d4d">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                          </children>
-                      </AnchorPane>
                       <AnchorPane fx:id="paneEncrypt" layoutX="658.0" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
                           <children>
+                        <AnchorPane fx:id="paneBlankEncrypt" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                               <JFXButton fx:id="buttonEncrypt" layoutX="192.0" layoutY="420.0" onMouseClicked="#encrypt" style="-fx-background-color: #0272A6;" text="Encrypt" textFill="WHITE" />
                               <Label layoutX="75.0" layoutY="131.0" opacity="0.75" text="Select the encryption algorithm" textFill="#4d4d4d">
                                   <font>
@@ -100,6 +67,40 @@
                               <Font size="14.0" />
                            </font>
                         </JFXPasswordField>
+                          </children>
+                      </AnchorPane>
+                      <AnchorPane fx:id="paneDecrypt" layoutX="658.0" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
+                          <children>
+                        <AnchorPane fx:id="paneBlankDecrypt" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;" />
+                        <Label layoutX="172.0" layoutY="57.0" text="Decrypt">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="buttonSelectEncryptedFile" layoutX="386.0" layoutY="228.0" onMouseClicked="#filePicker" prefHeight="20.0" prefWidth="37.0" text="..." />
+                        <JFXTextField fx:id="textFieldDecryptFile" editable="false" layoutX="75.0" layoutY="228.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to decrypt">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                              <JFXButton fx:id="buttonDecrypt" layoutX="192.0" layoutY="420.0" onMouseClicked="#decrypt" style="-fx-background-color: #0272A6;" text="Decrypt" textFill="WHITE" />
+                        <JFXTextField fx:id="textDecryptDirectory" editable="false" layoutX="75.0" layoutY="356.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="specify the destination directory">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXButton fx:id="buttonDecryptDirectory" layoutX="386.0" layoutY="356.0" onMouseClicked="#directoryPicker" prefHeight="20.0" prefWidth="37.0" text="..." />
+                        <JFXPasswordField fx:id="passwordFieldDecrypt" layoutX="75.0" layoutY="292.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="Enter passphrase">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXPasswordField>
+                        <JFXComboBox fx:id="algoComboDec" layoutX="75.0" layoutY="164.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" visibleRowCount="4" />
+                        <Label layoutX="75.0" layoutY="131.0" opacity="0.75" text="Select the decryption algorithm" textFill="#4d4d4d">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
                           </children>
                       </AnchorPane>
                   </children>
