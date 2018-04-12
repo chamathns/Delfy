@@ -2,11 +2,6 @@
 
 <!--<?import com.jfoenix.controls.*?>-->
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -14,14 +9,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.LogInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.LogInController">
     <children>
         <AnchorPane layoutY="30.0" prefHeight="485.0" prefWidth="1110.0" style="-fx-background-color: #ffff; -fx-border-radius: .5em;">
             <children>
                 <JFXButton fx:id="buttonSignInPane" layoutY="173.0" onMouseClicked="#handlePane" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Sign In" />
                 <JFXButton fx:id="buttonRegisterPane" layoutY="225.0" onMouseClicked="#handlePane" prefHeight="52.0" prefWidth="170.0" ripplerFill="#00344d" text="Register" />
+                <AnchorPane fx:id="paneSignIn" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
+                    <children>
+                  <AnchorPane fx:id="paneBlank" layoutX="55.0" layoutY="-5.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <JFXTextField fx:id="textEmailSignIn" labelFloat="true" layoutX="75.0" layoutY="172.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="e-mail">
+                     <font>
+                        <Font size="14.0" />
+                     </font></JFXTextField>
+                        <JFXButton fx:id="buttonSignIn" layoutX="193.0" layoutY="360.0" onMouseClicked="#handleSignIn" style="-fx-background-color: #0272A6;" text="Sign In" textFill="WHITE" />
+                  <JFXPasswordField fx:id="passwordFieldSignIn" labelFloat="true" layoutX="78.0" layoutY="248.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="enter your passphrase">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXPasswordField>
+                    </children>
+                </AnchorPane>
                 <AnchorPane fx:id="paneRegister" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
                     <children>
+                  <AnchorPane fx:id="paneBlank1" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <JFXTextField fx:id="textFieldName" labelFloat="true" layoutX="78.0" layoutY="62.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="name">
                             <font>
                                 <Font size="14.0" />
@@ -42,20 +53,6 @@
                   </JFXPasswordField>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="paneSignIn" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
-                    <children>
-                        <JFXTextField fx:id="textEmailSignIn" labelFloat="true" layoutX="75.0" layoutY="172.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="e-mail">
-                     <font>
-                        <Font size="14.0" />
-                     </font></JFXTextField>
-                        <JFXButton fx:id="buttonSignIn" layoutX="193.0" layoutY="360.0" onMouseClicked="#handleSignIn" style="-fx-background-color: #0272A6;" text="Sign In" textFill="WHITE" />
-                  <JFXPasswordField fx:id="passwordFieldSignIn" labelFloat="true" layoutX="78.0" layoutY="248.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="enter your passphrase">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXPasswordField>
-                    </children>
-                </AnchorPane>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="170.0" prefHeight="545.0" prefWidth="490.0" style="-fx-background-color: #0272A6;">
@@ -68,6 +65,5 @@
                 </Label>
             </children>
         </AnchorPane>
-        <AnchorPane />
     </children>
 </AnchorPane>

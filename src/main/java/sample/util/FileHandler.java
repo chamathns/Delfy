@@ -1,21 +1,30 @@
 package sample.util;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.controlsfx.control.Notifications;
+import sample.controller.MainWindowController;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 
 public class FileHandler {
     private static FileHandler instance = new FileHandler();
     private File selectedFile;
     private String extension;
-
     public static FileHandler getInstance(){
         return instance;
     }
@@ -56,7 +65,13 @@ public class FileHandler {
         try{
             content = FileUtils.readFileToByteArray(new File(filePath));
         } catch (IOException e){
-            e.printStackTrace();
+
+            Notifications.create()
+                    .title("Title Text")
+                    .hideAfter(javafx.util.Duration.seconds(5))
+                    .position(Pos.CENTER)
+                    .text("Sample Text")
+                    .showWarning();
         }
         return content;
     }
@@ -64,7 +79,8 @@ public class FileHandler {
         try {
             FileUtils.writeByteArrayToFile(new File(filePath),byteArray);
         } catch (IOException e) {
-            e.printStackTrace();
+//            Notifications.create().title("Title Text").text("Sample Text").showWarning();
+//            e.printStackTrace();
         }
     }
 
