@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 import javafx.scene.paint.Color;
 import org.apache.commons.io.FilenameUtils;
 import sample.util.DbConnect;
+import sample.util.FileData;
 
 public class Main extends Application {
     private double xOffset = 0;
@@ -38,6 +39,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DbConnect.getInstance().connect();
+        FileData.updateRecentFiles("chamath@gmail.com");
         launch(args);
     }
 }

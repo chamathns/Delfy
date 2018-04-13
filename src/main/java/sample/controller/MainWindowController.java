@@ -25,6 +25,7 @@ import org.apache.commons.io.FilenameUtils;
 import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
 import sample.util.Effects;
+import sample.util.FileData;
 import sample.util.FileHandler;
 import sample.util.KeyHandler;
 
@@ -196,5 +197,6 @@ public class MainWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setAlgoCombo(algoCombo);
         setAlgoCombo(algoComboDec);
+
     }
 }

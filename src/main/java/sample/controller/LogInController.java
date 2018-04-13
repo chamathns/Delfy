@@ -19,10 +19,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.bson.Document;
-import sample.util.Effects;
-import sample.util.KeyHandler;
-import sample.util.UserData;
-import sample.util.UserProfile;
+import sample.util.*;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -171,5 +169,6 @@ public class LogInController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         UserData.getInstance().loadUserProfiles();
+        FileData.getInstance().loadFileModules();
     }
 }

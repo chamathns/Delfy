@@ -69,7 +69,7 @@ public class recentFilesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        FileData.getInstance().loadFileModules();
+//        FileData.getInstance().loadFileModules();
         loadFileTable();
 
     }

@@ -23,6 +23,10 @@ public class UserData {
     private ObservableList<UserProfile> userProfiles;
     private static UserData instance = new UserData();
 
+    public static MongoCollection getUserCollection() {
+        return userCollection;
+    }
+
     public static UserData getInstance() {
         return instance;
     }
@@ -47,6 +51,15 @@ public class UserData {
             String email1 = document.get("_id").toString().trim();
             byte[] en_passphrase = decodeBase64(document.get("encryptedPassphrase").toString().trim());
             byte[] salt = decodeBase64(document.get("salt").toString().trim());
+            ArrayList<Document> files = (ArrayList<Document>) document.get("files");
+            for (Document fileDocument : files){
+                String fileName = fileDocument.get("file").toString().trim();
+                String date = fileDocument.get("date").toString().trim();
+                String location = fileDocument.get("location").toString().trim();
+                String algorithm = fileDocument.get("algorithm").toString().trim();
+                FileModule fileModule = new FileModule(fileName,date,location,algorithm);
+                FileData.getInstance().addFileModules(fileModule);
+            }
             user = new UserProfile(name,email1,en_passphrase,salt);
             UserData.getInstance().addUserProfile(user);
         }
@@ -63,8 +76,8 @@ public class UserData {
         Document doc = new Document("_id",userProfile.getEmail())
                 .append("name",userProfile.getName())
                 .append("encryptedPassphrase",encryptedPassphrase)
-                .append("salt",salt)
-                .append("files",files);
+                .append("salt",salt);
+//                .append("files",files);
         userCollection.insertOne(doc);
     }
 
