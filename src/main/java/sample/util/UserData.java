@@ -1,4 +1,5 @@
 package sample.util;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -7,6 +8,8 @@ import javafx.collections.ObservableList;
 import org.bson.Document;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,11 +56,15 @@ public class UserData {
     public void saveUserProfile(UserProfile userProfile){
         String encryptedPassphrase = encodeBase64String(userProfile.getEncryptedPassphrase());
         String salt = encodeBase64String(userProfile.getSalt());
+        List<Document> files = new ArrayList<>();
+        files.add(new Document("file","file1").append("date","date1").append("location","path1").append("algorithm","AES"));
+        files.add(new Document("file","file2").append("date","date2").append("location","path2").append("algorithm","DES"));
+        files.add(new Document("file","file3").append("date","date3").append("location","path3").append("algorithm","Blowfish"));
         Document doc = new Document("_id",userProfile.getEmail())
                 .append("name",userProfile.getName())
                 .append("encryptedPassphrase",encryptedPassphrase)
                 .append("salt",salt)
-                .append("files", new Document("file","file1").append("date","date1").append("location","path1").append("algorithm","AES"));
+                .append("files",files);
         userCollection.insertOne(doc);
     }
 

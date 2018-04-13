@@ -129,6 +129,10 @@ public class LogInController implements Initializable{
                 passwordFieldKey_re.clear();
             }else{
                 register();
+
+                Effects.sceneAnimator(paneSignIn,1000,Interpolator.LINEAR);
+                paneBlank.toBack();
+                paneBlank1.toFront();
                 paneSignIn.toFront();
                 textFieldName.clear();
                 textFieldEmail.clear();
