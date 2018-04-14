@@ -39,7 +39,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DbConnect.getInstance().connect();
-        FileData.updateRecentFiles("chamath@gmail.com");
         launch(args);
     }
 }

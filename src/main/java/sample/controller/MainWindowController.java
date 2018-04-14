@@ -24,15 +24,16 @@ import javafx.util.Duration;
 import org.apache.commons.io.FilenameUtils;
 import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
-import sample.util.Effects;
-import sample.util.FileData;
-import sample.util.FileHandler;
-import sample.util.KeyHandler;
+import sample.util.*;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
@@ -143,6 +144,15 @@ public class MainWindowController implements Initializable {
             }
         }
     }
+    public void saveFileData(){
+        Path path = Paths.get(textFieldEncryptFile.getText().trim());
+        String fileName = path.getFileName().toString();
+        String encryptedDirectory = Paths.get(textEncryptDirectory.getText().trim()).toString();
+        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        FileModule fileModule = new FileModule(fileName,timeStamp,encryptedDirectory,getAlgorithm());
+        FileData.getInstance().addFileModules(fileModule);
+        FileData.updateRecentFiles(LogInController.getCurrentUserEmail(),fileModule);
+    }
     public void encrypt(MouseEvent event) {
         setAlgorithm();
         String algo = getAlgorithm();
@@ -162,6 +172,8 @@ public class MainWindowController implements Initializable {
         File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
         newfile.setReadOnly();
         System.out.println("Encryption completed!");
+        saveFileData();
+
         textFieldEncryptFile.clear();
         passwordFieldEncrypt.clear();
         textEncryptDirectory.clear();

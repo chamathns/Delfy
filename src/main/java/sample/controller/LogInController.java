@@ -39,6 +39,13 @@ public class LogInController implements Initializable{
     @FXML
     private JFXPasswordField passwordFieldKey , passwordFieldKey_re, passwordFieldSignIn ;
 
+    private static String currentUserEmail;
+
+    public static String getCurrentUserEmail() {
+        return currentUserEmail;
+    }
+
+
     @FXML
     private void handlePane( MouseEvent event) {
 
@@ -63,6 +70,7 @@ public class LogInController implements Initializable{
             String logInPassphrase = passwordFieldSignIn.getText().trim();
 
             if (UserData.getInstance().authenticateUser(email,logInPassphrase)){
+                currentUserEmail = email;
                 Stage stage;
                 Parent root;
 

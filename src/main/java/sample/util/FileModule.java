@@ -16,7 +16,18 @@ public class FileModule extends RecursiveTreeObject<FileModule>{
         this.location = new SimpleStringProperty(location);
         this.algorithmUsed = new SimpleStringProperty(algorithm);
     }
-
+    public String getFileName() {
+        return fileName.get();
+    }
+    public String getTime(){
+        return time.get();
+    }
+    public String getLocation(){
+        return location.get();
+    }
+    public String getAlgorithmUsed(){
+        return algorithmUsed.get();
+    }
 
 }
 

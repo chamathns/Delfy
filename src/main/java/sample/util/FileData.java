@@ -29,13 +29,10 @@ public class FileData {
     public void loadFileModules(){
         fileModules = FXCollections.observableArrayList();
     }
-    public static void updateRecentFiles(String email){
-        List<Document> files = new ArrayList<>();
-        files.add(new Document("file","file1").append("date","date1").append("location","path1").append("algorithm","AES"));
-        files.add(new Document("file","file2").append("date","date2").append("location","path2").append("algorithm","DES"));
-        files.add(new Document("file","file3").append("date","date3").append("location","path3").append("algorithm","Blowfish"));
-        files.add(new Document("file","file4").append("date","date4").append("location","path4").append("algorithm","DES"));
-        files.add(new Document("file","file5").append("date","date5").append("location","path5").append("algorithm","Blowfish"));
+    public static void updateRecentFiles(String email, FileModule fileModule){
+        ArrayList<Document> files = new ArrayList<>();
+        files.add(new Document("file",fileModule.getFileName()).append("date",fileModule.getTime())
+        .append("location",fileModule.getLocation()).append("algorithm",fileModule.getAlgorithmUsed()));
         BasicDBObject newDocument = new BasicDBObject();
         newDocument.append("$set",new BasicDBObject().append("files",files));
         BasicDBObject searchQuery = new BasicDBObject().append("_id",email);
