@@ -35,40 +35,6 @@
                         </Pane>
                      </children>
                   </AnchorPane>
-                      <AnchorPane fx:id="paneEncrypt" layoutX="658.0" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
-                          <children>
-                        <AnchorPane fx:id="paneBlankEncrypt" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                              <JFXButton fx:id="buttonEncrypt" layoutX="192.0" layoutY="420.0" onMouseClicked="#encrypt" style="-fx-background-color: #0272A6;" text="Encrypt" textFill="WHITE" />
-                              <Label layoutX="75.0" layoutY="131.0" opacity="0.75" text="Select the encryption algorithm" textFill="#4d4d4d">
-                                  <font>
-                                      <Font size="14.0" />
-                                  </font>
-                              </Label>
-                        <JFXComboBox fx:id="algoCombo" layoutX="75.0" layoutY="164.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" visibleRowCount="4" />
-                        <JFXTextField fx:id="textFieldEncryptFile" editable="false" layoutX="75.0" layoutY="228.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to encrypt">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXButton fx:id="buttonSelectFile" layoutX="386.0" layoutY="228.0" onMouseClicked="#filePicker" prefHeight="20.0" prefWidth="37.0" text="..." />
-                        <JFXTextField fx:id="textEncryptDirectory" editable="false" layoutX="75.0" layoutY="356.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="specify the destination directory">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXButton fx:id="buttonFileDirectory" layoutX="386.0" layoutY="356.0" onMouseClicked="#directoryPicker" prefHeight="20.0" prefWidth="37.0" text="..." />
-                        <Label layoutX="172.0" layoutY="57.0" text="Encrypt">
-                           <font>
-                              <Font size="32.0" />
-                           </font>
-                        </Label>
-                        <JFXPasswordField fx:id="passwordFieldEncrypt" layoutX="75.0" layoutY="292.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="Enter a passphrase">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXPasswordField>
-                          </children>
-                      </AnchorPane>
                       <AnchorPane fx:id="paneDecrypt" layoutX="658.0" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
                           <children>
                         <AnchorPane fx:id="paneBlankDecrypt" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;" />
@@ -101,6 +67,40 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
+                          </children>
+                      </AnchorPane>
+                      <AnchorPane fx:id="paneEncrypt" layoutX="658.0" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
+                          <children>
+                        <AnchorPane fx:id="paneBlankEncrypt" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <JFXButton fx:id="buttonEncrypt" layoutX="192.0" layoutY="420.0" onMouseClicked="#encrypt" style="-fx-background-color: #0272A6;" text="Encrypt" textFill="WHITE" />
+                              <Label layoutX="75.0" layoutY="131.0" opacity="0.75" text="Select the encryption algorithm" textFill="#4d4d4d">
+                                  <font>
+                                      <Font size="14.0" />
+                                  </font>
+                              </Label>
+                        <JFXComboBox fx:id="algoCombo" layoutX="75.0" layoutY="164.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" visibleRowCount="4" />
+                        <JFXTextField fx:id="textFieldEncryptFile" editable="false" layoutX="75.0" layoutY="228.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="select a file to encrypt">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXButton fx:id="buttonSelectFile" layoutX="386.0" layoutY="228.0" onMouseClicked="#filePicker" prefHeight="20.0" prefWidth="37.0" text="..." />
+                        <JFXTextField fx:id="textEncryptDirectory" editable="false" layoutX="75.0" layoutY="356.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="specify the destination directory">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXButton fx:id="buttonFileDirectory" layoutX="386.0" layoutY="356.0" onMouseClicked="#directoryPicker" prefHeight="20.0" prefWidth="37.0" text="..." />
+                        <Label layoutX="172.0" layoutY="57.0" text="Encrypt">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Label>
+                        <JFXPasswordField fx:id="passwordFieldEncrypt" layoutX="75.0" layoutY="292.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="Enter a passphrase">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXPasswordField>
                           </children>
                       </AnchorPane>
                   </children>
