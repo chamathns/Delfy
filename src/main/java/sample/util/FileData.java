@@ -30,11 +30,11 @@ public class FileData {
         fileModules = FXCollections.observableArrayList();
     }
     public static void updateRecentFiles(String email, FileModule fileModule){
-        ArrayList<Document> files = new ArrayList<>();
-        files.add(new Document("file",fileModule.getFileName()).append("date",fileModule.getTime())
-        .append("location",fileModule.getLocation()).append("algorithm",fileModule.getAlgorithmUsed()));
+//        ArrayList<Document> files = new ArrayList<>();
+        Document newFile = new Document("file",fileModule.getFileName()).append("date",fileModule.getTime())
+        .append("location",fileModule.getLocation()).append("algorithm",fileModule.getAlgorithmUsed());
         BasicDBObject newDocument = new BasicDBObject();
-        newDocument.append("$set",new BasicDBObject().append("files",files));
+        newDocument.append("$push",new BasicDBObject().append("files",newFile));
         BasicDBObject searchQuery = new BasicDBObject().append("_id",email);
         userCollection.updateOne(searchQuery,newDocument);
     }

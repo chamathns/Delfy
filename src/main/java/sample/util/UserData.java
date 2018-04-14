@@ -51,14 +51,19 @@ public class UserData {
             String email1 = document.get("_id").toString().trim();
             byte[] en_passphrase = decodeBase64(document.get("encryptedPassphrase").toString().trim());
             byte[] salt = decodeBase64(document.get("salt").toString().trim());
-            ArrayList<Document> files = (ArrayList<Document>) document.get("files");
-            for (Document fileDocument : files){
-                String fileName = fileDocument.get("file").toString().trim();
-                String date = fileDocument.get("date").toString().trim();
-                String location = fileDocument.get("location").toString().trim();
-                String algorithm = fileDocument.get("algorithm").toString().trim();
-                FileModule fileModule = new FileModule(fileName,date,location,algorithm);
-                FileData.getInstance().addFileModules(fileModule);
+            try{
+
+                ArrayList<Document> files = (ArrayList<Document>) document.get("files");
+                for (Document fileDocument : files){
+                    String fileName = fileDocument.get("file").toString().trim();
+                    String date = fileDocument.get("date").toString().trim();
+                    String location = fileDocument.get("location").toString().trim();
+                    String algorithm = fileDocument.get("algorithm").toString().trim();
+                    FileModule fileModule = new FileModule(fileName,date,location,algorithm);
+                    FileData.getInstance().addFileModules(fileModule);
+                }
+            }catch (Exception e){
+//                e.printStackTrace();
             }
             user = new UserProfile(name,email1,en_passphrase,salt);
             UserData.getInstance().addUserProfile(user);
@@ -70,9 +75,9 @@ public class UserData {
         String encryptedPassphrase = encodeBase64String(userProfile.getEncryptedPassphrase());
         String salt = encodeBase64String(userProfile.getSalt());
         List<Document> files = new ArrayList<>();
-        files.add(new Document("file","file1").append("date","date1").append("location","path1").append("algorithm","AES"));
-        files.add(new Document("file","file2").append("date","date2").append("location","path2").append("algorithm","DES"));
-        files.add(new Document("file","file3").append("date","date3").append("location","path3").append("algorithm","Blowfish"));
+//        files.add(new Document("file","file1").append("date","date1").append("location","path1").append("algorithm","AES"));
+//        files.add(new Document("file","file2").append("date","date2").append("location","path2").append("algorithm","DES"));
+//        files.add(new Document("file","file3").append("date","date3").append("location","path3").append("algorithm","Blowfish"));
         Document doc = new Document("_id",userProfile.getEmail())
                 .append("name",userProfile.getName())
                 .append("encryptedPassphrase",encryptedPassphrase)
