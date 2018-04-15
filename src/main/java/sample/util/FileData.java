@@ -6,9 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.bson.Document;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FileData {
 
     public ObservableList<FileModule> fileModules;
@@ -30,7 +27,6 @@ public class FileData {
         fileModules = FXCollections.observableArrayList();
     }
     public static void updateRecentFiles(String email, FileModule fileModule){
-//        ArrayList<Document> files = new ArrayList<>();
         Document newFile = new Document("file",fileModule.getFileName()).append("date",fileModule.getTime())
         .append("location",fileModule.getLocation()).append("algorithm",fileModule.getAlgorithmUsed());
         BasicDBObject newDocument = new BasicDBObject();

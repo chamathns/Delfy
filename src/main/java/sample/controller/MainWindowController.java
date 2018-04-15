@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.commons.io.FilenameUtils;
+import sample.Main;
 import sample.algorithms.AES;
 import sample.algorithms.Algorithm;
 import sample.util.*;
@@ -42,7 +43,7 @@ public class MainWindowController implements Initializable {
     private byte[] encryptedData, decryptedData;
     @FXML
     private JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
-            btnRecentsPane, buttonDecryptDirectory, buttonEncrypt;
+            btnRecentsPane, buttonDecryptDirectory, buttonEncrypt, buttonSignOut;
     @FXML
     private JFXTextField textFieldEncryptFile, textFieldDecryptFile, textEncryptDirectory, textDecryptDirectory;
     @FXML
@@ -53,7 +54,8 @@ public class MainWindowController implements Initializable {
     private JFXPasswordField passwordFieldEncrypt, passwordFieldDecrypt;
     @FXML
     private StackPane mainStackPane ;
-
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public void setAlgoCombo(JFXComboBox algoCombo) {
         algoCombo.getItems().setAll("AES", "Blowfish", "DES", "RC2");
@@ -106,6 +108,31 @@ public class MainWindowController implements Initializable {
 
     }
 
+    @FXML
+    public void handleSignOut(MouseEvent event) throws IOException {
+
+
+        Stage stageLogIn;
+        Parent root;
+
+        stageLogIn=(Stage) buttonSignOut.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/sample/userInterface/logIn.fxml"));
+        root.setOnMousePressed(e -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        root.setOnMouseDragged(e -> {
+            stageLogIn.setX(e.getScreenX() - xOffset);
+            stageLogIn.setY(e.getScreenY() - yOffset);
+        });
+        Effects.sceneAnimator(root,2000,Interpolator.EASE_IN);
+
+        Scene scene = new Scene(root);
+        stageLogIn.setScene(scene);
+        stageLogIn.setResizable(false);
+        stageLogIn.show();
+    }
+
     public void filePicker(MouseEvent event){
         try{
             if (event.getSource()==buttonSelectFile){
@@ -148,7 +175,7 @@ public class MainWindowController implements Initializable {
         Path path = Paths.get(textFieldEncryptFile.getText().trim());
         String fileName = path.getFileName().toString();
         String encryptedDirectory = Paths.get(textEncryptDirectory.getText().trim()).toString();
-        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
         FileModule fileModule = new FileModule(fileName,timeStamp,encryptedDirectory,getAlgorithm());
         FileData.getInstance().addFileModules(fileModule);
         FileData.updateRecentFiles(LogInController.getCurrentUserEmail(),fileModule);
@@ -197,13 +224,6 @@ public class MainWindowController implements Initializable {
         textDecryptDirectory.clear();
         passwordFieldDecrypt.clear();
     }
-//    public void errorHandler(String promptText){
-//        JFXDialogLayout content = new JFXDialogLayout();
-//        content.setHeading(new Text("Error"));
-//        content.setBody(new Text(promptText));
-//        JFXDialog dialog = new JFXDialog(mainStackPane,content,JFXDialog.DialogTransition.CENTER);
-//        dialog.show();
-//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
