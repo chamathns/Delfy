@@ -75,14 +75,10 @@ public class UserData {
         String encryptedPassphrase = encodeBase64String(userProfile.getEncryptedPassphrase());
         String salt = encodeBase64String(userProfile.getSalt());
         List<Document> files = new ArrayList<>();
-//        files.add(new Document("file","file1").append("date","date1").append("location","path1").append("algorithm","AES"));
-//        files.add(new Document("file","file2").append("date","date2").append("location","path2").append("algorithm","DES"));
-//        files.add(new Document("file","file3").append("date","date3").append("location","path3").append("algorithm","Blowfish"));
         Document doc = new Document("_id",userProfile.getEmail())
                 .append("name",userProfile.getName())
                 .append("encryptedPassphrase",encryptedPassphrase)
                 .append("salt",salt);
-//                .append("files",files);
         userCollection.insertOne(doc);
     }
 

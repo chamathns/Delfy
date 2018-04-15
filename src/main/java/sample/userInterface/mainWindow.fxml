@@ -33,6 +33,7 @@
                                   </Label>
                            </children>
                         </Pane>
+                        <JFXButton fx:id="buttonSignOut" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="..." onMouseClicked="#handleSignOut" />
                      </children>
                   </AnchorPane>
                       <AnchorPane fx:id="paneDecrypt" layoutX="658.0" prefHeight="545.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
