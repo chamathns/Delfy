@@ -1,16 +1,12 @@
 package sample;
 
-import com.mongodb.MongoClient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.scene.paint.Color;
-import org.apache.commons.io.FilenameUtils;
 import sample.util.DbConnect;
-import sample.util.FileData;
 
 public class Main extends Application {
     private double xOffset = 0;
@@ -18,8 +14,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("userInterface/mainWindow.fxml"));
-//        Parent root = FXMLLoader.load(getClass().getResource("userInterface/logIn.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("userInterface/mainWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("userInterface/logIn.fxml"));
 
 //        primaryStage.initStyle(StageStyle.TRANSPARENT);
         root.setOnMousePressed(event -> {
@@ -34,6 +30,14 @@ public class Main extends Application {
         //scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
+        primaryStage.setTitle("Delfy | Security for your files");
+
+        try{
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("delfyIcon.png")));
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         primaryStage.show();
     }
 
