@@ -1,10 +1,13 @@
 package sample.util;
 import com.mongodb.BasicDBObject;
+import com.mongodb.MongoWriteException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 import org.bson.Document;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -71,7 +74,7 @@ public class UserData {
         return user;
     }
 
-    public void saveUserProfile(UserProfile userProfile){
+    public void saveUserProfile(UserProfile userProfile) throws com.mongodb.MongoWriteException{
         String encryptedPassphrase = encodeBase64String(userProfile.getEncryptedPassphrase());
         String salt = encodeBase64String(userProfile.getSalt());
         List<Document> files = new ArrayList<>();
@@ -79,7 +82,18 @@ public class UserData {
                 .append("name",userProfile.getName())
                 .append("encryptedPassphrase",encryptedPassphrase)
                 .append("salt",salt);
-        userCollection.insertOne(doc);
+        try{
+            userCollection.insertOne(doc);
+        }catch (com.mongodb.MongoWriteException e){
+//            Alert alert = new Alert(Alert.AlertType.ERROR,"User already exists");
+//            alert.setHeaderText(null);
+//            alert.initStyle(StageStyle.UTILITY);
+//            alert.setTitle(null);
+//            Effects.mediaError().play();
+//            alert.showAndWait();
+
+        }
+
     }
 
     public static boolean validateName(String name) {

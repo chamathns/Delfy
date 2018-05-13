@@ -1,8 +1,7 @@
 package sample.controller;
 
 import com.jfoenix.controls.*;
-import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.apache.commons.io.FilenameUtils;
 import sample.Main;
@@ -45,13 +46,16 @@ public class MainWindowController implements Initializable {
     private JFXButton buttonSelectFile,buttonSelectEncryptedFile,buttonFileDirectory, btnEncryptPane, btnDecryptPane,
             btnRecentsPane, buttonDecryptDirectory, buttonEncrypt, buttonSignOut;
     @FXML
+    private Label lblFileEncrypt,lblPassphraseEncrypt,lblPassphraseEncrypt1,lblPassphraseEncrypt2,lblDirectoryEncrypt,
+            lblFileDecrypt,lblPassphraseDecrypt,lblDecryptDirectory;
+    @FXML
     private JFXTextField textFieldEncryptFile, textFieldDecryptFile, textEncryptDirectory, textDecryptDirectory;
     @FXML
     private AnchorPane paneEncrypt, paneDecrypt, paneBlankDecrypt, paneBlankEncrypt;
     @FXML
     private JFXComboBox algoCombo, algoComboDec;
     @FXML
-    private JFXPasswordField passwordFieldEncrypt, passwordFieldDecrypt;
+    private JFXPasswordField passwordFieldEncrypt,passwordFieldEncrypt1, passwordFieldDecrypt;
     @FXML
     private StackPane mainStackPane ;
     private double xOffset = 0;
@@ -181,48 +185,141 @@ public class MainWindowController implements Initializable {
         FileData.updateRecentFiles(LogInController.getCurrentUserEmail(),fileModule);
     }
     public void encrypt(MouseEvent event) {
-        setAlgorithm();
-        String algo = getAlgorithm();
-        byte[] data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
-        System.out.println("Encrypting with: " + algo);
-        Algorithm.setALGO(algo);
-        Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
-        try {
-            encryptedData = Algorithm.encrypt(data);
-        } catch (Exception e) {
-            System.out.println(e.getClass().toString());
-            if (e.getClass() == IOException.class){
+        Effects.sceneAnimator(lblFileEncrypt,1000,Interpolator.EASE_OUT);
+        lblFileEncrypt.setVisible(false);
+        Effects.sceneAnimator(lblPassphraseEncrypt,1000,Interpolator.EASE_OUT);
+        lblPassphraseEncrypt.setVisible(false);
+        Effects.sceneAnimator(lblPassphraseEncrypt1,1000,Interpolator.EASE_OUT);
+        lblPassphraseEncrypt1.setVisible(false);
+        Effects.sceneAnimator(lblPassphraseEncrypt2,1000,Interpolator.EASE_OUT);
+        lblPassphraseEncrypt2.setVisible(false);
+        Effects.sceneAnimator(lblDirectoryEncrypt,1000,Interpolator.EASE_OUT);
+        lblDirectoryEncrypt.setVisible(false);
 
-            }
+        if (textFieldEncryptFile.getText().equals("")){
+            Effects.sceneAnimator(lblFileEncrypt,1000,Interpolator.EASE_IN);
+            lblFileEncrypt.setVisible(true);
+//            PauseTransition delay = new PauseTransition(Duration.millis(3000));
+//            delay.setOnFinished( (ActionEvent event1) -> {
+//                Effects.sceneAnimator(labelWarning,2000,Interpolator.EASE_OUT);
+//                labelWarning.setVisible(false);
+//            } );
+//            delay.play();
+
         }
-        FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename + "." + extension + ".enc"), getEncryptedData());
-        File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
-        newfile.setReadOnly();
-        System.out.println("Encryption completed!");
-        saveFileData();
+        if (passwordFieldEncrypt.getText().trim().equals("")){
+            Effects.sceneAnimator(lblPassphraseEncrypt,1000,Interpolator.EASE_IN);
+            lblPassphraseEncrypt.setVisible(true);
 
-        textFieldEncryptFile.clear();
-        passwordFieldEncrypt.clear();
-        textEncryptDirectory.clear();
+        }
+        if (passwordFieldEncrypt1.getText().trim().equals("")){
+            Effects.sceneAnimator(lblPassphraseEncrypt2,1000, Interpolator.EASE_IN);
+            lblPassphraseEncrypt2.setVisible(true);
+        }
+        if (!(passwordFieldEncrypt.getText().trim()).equals(passwordFieldEncrypt1.getText().trim()) && !passwordFieldEncrypt1.getText().equals("")){
+            Effects.sceneAnimator(lblPassphraseEncrypt1,1000, Interpolator.EASE_IN);
+            lblPassphraseEncrypt1.setVisible(true);
+
+        }
+        if (textEncryptDirectory.getText().equals("")){
+            Effects.sceneAnimator(lblDirectoryEncrypt,1000,Interpolator.EASE_IN);
+            lblDirectoryEncrypt.setVisible(true);
+        }
+        else
+        {
+            setAlgorithm();
+            String algo = getAlgorithm();
+            byte[] data = FileHandler.readFile(textFieldEncryptFile.getText().trim());
+            System.out.println("Encrypting with: " + algo);
+            Algorithm.setALGO(algo);
+            Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldEncrypt.getText().trim()));
+            try {
+                encryptedData = Algorithm.encrypt(data);
+            } catch (Exception e) {
+                System.out.println(e.getClass().toString());
+                if (e.getClass() == IOException.class){
+
+                }
+            }
+            FileHandler.writeFile((textEncryptDirectory.getText().trim() + "\\" + filename + "." + extension + ".enc"), getEncryptedData());
+            File newfile = new File(textEncryptDirectory.getText().trim() + "\\Encrypted " + filename + ".txt");
+            newfile.setReadOnly();
+            System.out.println("Encryption completed!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Encryption successful!");
+            alert.setHeaderText(null);
+            alert.setTitle(null);
+            alert.initStyle(StageStyle.UTILITY);
+            Effects.mediaAlert().play();
+            alert.show();
+            saveFileData();
+            encryptedData = null;
+            textFieldEncryptFile.clear();
+            passwordFieldEncrypt.clear();
+            passwordFieldEncrypt1.clear();
+            textEncryptDirectory.clear();
+
+        }
+
     }
 
     public void decrypt(MouseEvent event){
-        setDecAlgorithm();
-        String algo = getAlgorithm();
-        byte[] encryptedData = FileHandler.readFile(textFieldDecryptFile.getText().trim());
-        System.out.println("Decrypting with: " + algo);
-        Algorithm.setALGO(algo);
-        Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldDecrypt.getText().trim()));
-        try {
-            decryptedData = AES.decrypt(encryptedData);
-        }catch (Exception e){
-            e.printStackTrace();
+        Effects.sceneAnimator(lblFileDecrypt,1000,Interpolator.EASE_OUT);
+        lblFileDecrypt.setVisible(false);
+        Effects.sceneAnimator(lblPassphraseDecrypt,1000,Interpolator.EASE_OUT);
+        lblPassphraseDecrypt.setVisible(false);
+        Effects.sceneAnimator(lblDecryptDirectory,1000,Interpolator.EASE_OUT);
+        lblDecryptDirectory.setVisible(false);
+
+        if (textFieldDecryptFile.getText().trim().equals("")){
+            Effects.sceneAnimator(lblFileDecrypt,1000,Interpolator.EASE_IN);
+            lblFileDecrypt.setVisible(true);
         }
-        FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + FilenameUtils.getBaseName(encryptedFileName) +")."+extension),getDecryptedData());
-        System.out.println("Decryption completed!");
-        textFieldDecryptFile.clear();
-        textDecryptDirectory.clear();
-        passwordFieldDecrypt.clear();
+        if (passwordFieldDecrypt.getText().trim().equals("")){
+            Effects.sceneAnimator(lblPassphraseDecrypt,1000,Interpolator.EASE_IN);
+            lblPassphraseDecrypt.setVisible(true);
+        }
+        if (textDecryptDirectory.getText().trim().equals("")){
+            Effects.sceneAnimator(lblDecryptDirectory,1000,Interpolator.EASE_IN);
+            lblDecryptDirectory.setVisible(true);
+        }
+        else{
+            setDecAlgorithm();
+            String algo = getAlgorithm();
+            byte[] encryptedData = FileHandler.readFile(textFieldDecryptFile.getText().trim());
+            System.out.println("Decrypting with: " + algo);
+            Algorithm.setALGO(algo);
+            Algorithm.setKeyValue(KeyHandler.generateKey(passwordFieldDecrypt.getText().trim()));
+            try {
+                decryptedData = AES.decrypt(encryptedData);
+            }catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.WARNING,"Algorithm or the passphrase doesn't match");
+                alert.setHeaderText(null);
+                alert.setTitle(null);
+                alert.initStyle(StageStyle.TRANSPARENT);
+
+                Effects.mediaError().play();
+                alert.show();
+            }
+            try{
+                FileHandler.writeFile((textDecryptDirectory.getText().trim() + "\\Decrypted (" + FilenameUtils.getBaseName(encryptedFileName) +")."+extension),getDecryptedData());
+            }catch (Exception e){
+//                e.printStackTrace();
+            }
+            if (decryptedData!= null){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,"Decryption successful!");
+                alert.setHeaderText(null);
+                alert.setTitle(null);
+                alert.initStyle(StageStyle.UTILITY);
+                Effects.mediaAlert().play();
+                alert.show();
+                System.out.println("Decryption completed!");
+            }
+
+            textFieldDecryptFile.clear();
+            textDecryptDirectory.clear();
+            passwordFieldDecrypt.clear();
+            decryptedData = null;
+        }
     }
 
     @Override

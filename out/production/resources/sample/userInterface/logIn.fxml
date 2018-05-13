@@ -2,6 +2,12 @@
 
 <!--<?import com.jfoenix.controls.*?>-->
 
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -9,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.LogInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.LogInController">
     <children>
         <AnchorPane layoutY="30.0" prefHeight="485.0" prefWidth="1110.0" style="-fx-background-color: #ffff; -fx-border-radius: .5em;">
             <children>
@@ -36,12 +42,57 @@
                         <Font size="14.0" />
                      </font>
                   </JFXPasswordField>
+                  <Label fx:id="lblRegisterName" layoutX="78.0" layoutY="97.0" opacity="0.8" text="Name must consist only of letters" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRegisterEmail" layoutX="78.0" layoutY="172.0" opacity="0.8" text="invalid e-mail address" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRegisterPassphrase" layoutX="78.0" layoutY="235.0" opacity="0.8" prefHeight="64.0" prefWidth="339.0" text="Passphrase has to be at least 6 characters long.Must contain at least one lower case letter,one upper case letter,one digit and one special character" textFill="RED" visible="false" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRegisterPassphrase1" layoutX="78.0" layoutY="322.0" opacity="0.8" text="passphrase does not match" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRegisterEmail1" layoutX="78.0" layoutY="172.0" opacity="0.8" text="Enter e-mail address" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRegisterPassphrase2" layoutX="78.0" layoutY="247.0" opacity="0.8" text="passphrase required" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRegisterName1" layoutX="78.0" layoutY="97.0" opacity="0.8" text="Enter your name" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRegisterUserExists" layoutX="78.0" layoutY="172.0" opacity="0.8" text="user already exists" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRegisterSignIn" layoutX="335.0" layoutY="172.0" onMouseClicked="#handleRegisterSignIn" onMouseEntered="#handleRegisterSignIn_style" opacity="0.6" text="sign in?" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="paneSignIn" layoutX="658.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;">
                     <children>
                   <AnchorPane fx:id="paneBlank" layoutX="55.0" layoutY="-5.0" prefHeight="450.0" prefWidth="450.0" style="-fx-background-color: #ffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <JFXTextField fx:id="textEmailSignIn" labelFloat="true" layoutX="75.0" layoutY="172.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="e-mail">
+                        <JFXTextField fx:id="textEmailSignIn" labelFloat="true" layoutX="78.0" layoutY="172.0" opacity="0.75" prefHeight="31.0" prefWidth="300.0" promptText="e-mail">
                      <font>
                         <Font size="14.0" />
                      </font></JFXTextField>
@@ -51,6 +102,21 @@
                         <Font size="14.0" />
                      </font>
                   </JFXPasswordField>
+                  <Label fx:id="lblSignInPassphrase" layoutX="78.0" layoutY="283.0" opacity="0.8" text="passphrase is incorrect" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblSignInEmail" layoutX="78.0" layoutY="207.0" opacity="0.6" text="user doesn't exist" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblSignInNewAccount" layoutX="265.0" layoutY="207.0" onMouseClicked="#handleNewAccount" onMouseEntered="#handleNewAccount_style" opacity="0.6" text="create new account?" textFill="#000000cc" visible="false">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
             </children>
@@ -58,11 +124,26 @@
         <AnchorPane layoutX="170.0" prefHeight="545.0" prefWidth="490.0" style="-fx-background-color: #0272A6;">
             <children>
 
-                <Label layoutX="157.0" layoutY="202.0" text="Welcome!" textFill="WHITE">
+                <Label layoutX="95.0" layoutY="238.0" prefHeight="52.0" prefWidth="300.0" text="Welcome to Delfy" textFill="WHITE">
                     <font>
-                        <Font size="40.0" />
+                        <Font size="36.0" />
                     </font>
                 </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="191.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../out/production/resources/sample/delfyIconWhite.png" />
+               </image>
+            </ImageView>
+            <Label contentDisplay="CENTER" layoutX="132.0" layoutY="280.0" prefHeight="45.0" prefWidth="208.0" text="File security made easy" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="203.0" fitWidth="470.0" layoutX="14.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../out/production/resources/sample/signin1.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
     </children>

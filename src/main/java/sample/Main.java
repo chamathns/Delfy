@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import sample.util.DbConnect;
+import sample.util.UserData;
+import sample.util.UserProfile;
 
 public class Main extends Application {
     private double xOffset = 0;
