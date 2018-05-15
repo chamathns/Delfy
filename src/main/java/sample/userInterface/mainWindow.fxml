@@ -2,13 +2,6 @@
 
 <!--<?import com.jfoenix.controls.*?>-->
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
@@ -22,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="mainStackPane" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainWindowController">
+<StackPane fx:id="mainStackPane" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MainWindowController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);">
           <children>
@@ -43,7 +36,7 @@
                                   </Label>
                               <ImageView fitHeight="410.0" fitWidth="484.0" layoutX="4.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../out/production/resources/sample/dashboard.png" />
+                                    <Image url="@../../dashboard.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -52,7 +45,7 @@
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="19.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../out/production/resources/sample/g27.png" />
+                                    <Image url="@../../g27.png" />
                                  </image>
                                  <effect>
                                     <Blend />

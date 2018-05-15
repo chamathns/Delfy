@@ -26,7 +26,6 @@ dependencies {
     compile 'com.jfoenix:jfoenix:8.0.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
-//    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.59'
     testCompile "org.testfx:testfx-core:4.0.13-alpha"
     testCompile "org.testfx:testfx-junit:4.0.13-alpha"
     compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
@@ -46,7 +45,7 @@ sourceSets {
     main {
         resources {
             srcDirs = ["src/main/java"]
-            includes = ["**/*.fxml"]
+            includes = ["**/*.fxml","**/*.png"]
         }
     }
 }

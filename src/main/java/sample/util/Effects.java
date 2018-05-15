@@ -29,4 +29,5 @@ public class Effects {
         final AudioClip alert = new AudioClip(Effects.class.getResource("/sample/Windows Ding.wav").toString());
         return alert;
     }
+
 }

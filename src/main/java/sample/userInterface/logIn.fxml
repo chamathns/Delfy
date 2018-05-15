@@ -2,20 +2,16 @@
 
 <!--<?import com.jfoenix.controls.*?>-->
 
-<?import javafx.scene.image.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.LogInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1110.0" style="-fx-background-color: rgba(0,100,0,0);" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.LogInController">
     <children>
         <AnchorPane layoutY="30.0" prefHeight="485.0" prefWidth="1110.0" style="-fx-background-color: #ffff; -fx-border-radius: .5em;">
             <children>
@@ -131,7 +127,7 @@
                 </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="191.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../out/production/resources/sample/delfyIconWhite.png" />
+                  <Image url="@../../delfyIconWhite.png" />
                </image>
             </ImageView>
             <Label contentDisplay="CENTER" layoutX="132.0" layoutY="280.0" prefHeight="45.0" prefWidth="208.0" text="File security made easy" textAlignment="CENTER" textFill="WHITE">
@@ -141,7 +137,7 @@
             </Label>
             <ImageView fitHeight="203.0" fitWidth="470.0" layoutX="14.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../out/production/resources/sample/signin1.png" />
+                  <Image url="@../../signin1.png" />
                </image>
             </ImageView>
             </children>

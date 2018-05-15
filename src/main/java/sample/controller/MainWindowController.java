@@ -184,6 +184,7 @@ public class MainWindowController implements Initializable {
         FileData.getInstance().addFileModules(fileModule);
         FileData.updateRecentFiles(LogInController.getCurrentUserEmail(),fileModule);
     }
+    
     public void encrypt(MouseEvent event) {
         Effects.sceneAnimator(lblFileEncrypt,1000,Interpolator.EASE_OUT);
         lblFileEncrypt.setVisible(false);
@@ -199,12 +200,6 @@ public class MainWindowController implements Initializable {
         if (textFieldEncryptFile.getText().equals("")){
             Effects.sceneAnimator(lblFileEncrypt,1000,Interpolator.EASE_IN);
             lblFileEncrypt.setVisible(true);
-//            PauseTransition delay = new PauseTransition(Duration.millis(3000));
-//            delay.setOnFinished( (ActionEvent event1) -> {
-//                Effects.sceneAnimator(labelWarning,2000,Interpolator.EASE_OUT);
-//                labelWarning.setVisible(false);
-//            } );
-//            delay.play();
 
         }
         if (passwordFieldEncrypt.getText().trim().equals("")){
@@ -324,6 +319,7 @@ public class MainWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        DbConnect.getInstance().connect();
         setAlgoCombo(algoCombo);
         setAlgoCombo(algoComboDec);
 

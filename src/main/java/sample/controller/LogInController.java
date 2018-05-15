@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -24,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.bson.Document;
+import org.controlsfx.control.Notifications;
 import sample.util.*;
 
 import java.net.URL;
@@ -52,7 +54,6 @@ public class LogInController implements Initializable{
     public static String getCurrentUserEmail() {
         return currentUserEmail;
     }
-
 
     @FXML
     private void handlePane( MouseEvent event) {
@@ -154,6 +155,7 @@ public class LogInController implements Initializable{
             }
 
         }catch (Exception e){
+            e.printStackTrace();
             Effects.sceneAnimator(lblSignInEmail,1000,Interpolator.EASE_IN);
             lblSignInEmail.setVisible(true);
             Effects.sceneAnimator(lblSignInNewAccount,1000,Interpolator.EASE_IN);
@@ -192,14 +194,15 @@ public class LogInController implements Initializable{
             if (name.equals("")){
                 Effects.sceneAnimator(lblRegisterName1,1000,Interpolator.EASE_IN);
                 lblRegisterName1.setVisible(true);
+                Notifications.create()
+                        .title("Title Text")
+                        .hideAfter(javafx.util.Duration.seconds(5))
+                        .position(Pos.CENTER)
+                        .text("Sample Text")
+                        .showWarning();
             }
             if (UserData.getUserData(textFieldEmail.getText().trim()).getName()!=null){
-//                Alert alert = new Alert(Alert.AlertType.ERROR,"User already exists");
-//                alert.setHeaderText(null);
-//                alert.initStyle(StageStyle.UTILITY);
-//                alert.setTitle(null);
                 Effects.mediaError().play();
-//                alert.showAndWait();
                 Effects.sceneAnimator(lblRegisterUserExists,1000,Interpolator.EASE_IN);
                 lblRegisterUserExists.setVisible(true);
                 Effects.sceneAnimator(lblRegisterSignIn,1000,Interpolator.EASE_IN);
@@ -286,7 +289,9 @@ public class LogInController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        DbConnect.getInstance().connect();
         UserData.getInstance().loadUserProfiles();
         FileData.getInstance().loadFileModules();
+
     }
 }
